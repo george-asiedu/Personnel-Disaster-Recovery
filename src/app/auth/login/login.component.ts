@@ -5,7 +5,9 @@ import { Router, RouterLink } from '@angular/router';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../authService/auth.service';
 import { NgToastService } from 'ng-angular-popup';
-import { Login } from '../../model/login';
+import { Login, LoginResponse } from '../../model/login';
+import { UserDataService } from '../../shared/user-data/user-data.service';
+import { passwordValidator } from '../../validators/passwordValidator';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +32,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private spinner: NgxSpinnerService,
+    private userService: UserDataService,
     private toast: NgToastService) {
       this.loginForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -48,14 +51,15 @@ export class LoginComponent {
     const user: Login = this.loginForm.value
 
     this.as.Login(user).subscribe({
-      next: (response) => {   
-        console.log(response)
+      next: (response: LoginResponse) => {   
         this.loading = false
         this.toast.success("Account registered successfully", response.message, 3000 )
         this.loginForm.reset()
         setTimeout(() => {
           this.spinner.hide()
         }, 2000)
+
+        this.userService.setUser(response.data.user)
         
         if(response.data.user.role === "ADMIN") {
           this.router.navigate(['/admin-page'])
@@ -63,11 +67,10 @@ export class LoginComponent {
           this.router.navigate(['/personnel-profile'])
         }     
       },
-      error: (err) => {
+      error: () => {
         this.loading = false
-        this.toast.danger("Login Failed", err.message, 3000 )
+        this.toast.danger("Login Failed", "Incorrect email or password", 3000 )
         this.spinner.hide()
-        console.error('Error logging in', err)
       }
     })
   }
