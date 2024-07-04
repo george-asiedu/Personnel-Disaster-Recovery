@@ -359,8 +359,7 @@
             <button 
                 type="button" 
                 (click)="prevStep()"
-                *ngIf="currentStep > 1" 
-                [disabled]="profileForm.invalid || loading"
+                *ngIf="currentStep > 1"               
                 class="px-[14px] py-[8px] bg-white border border-border rounded-lg text-heading tracking-wide font-medium hover:bg-slate-50 text-sm"
             >
                 Previous
@@ -369,7 +368,6 @@
                 type="button" 
                 (click)="nextStep()"
                 *ngIf="currentStep < 5"
-                [disabled]="profileForm.invalid || loading"
                 class="px-[14px] py-[8px] bg-primary border border-border rounded-lg text-white tracking-wide font-medium hover:bg-tertiary text-sm"
             >
                 <p *ngIf="!loading">Save & continue</p>
@@ -381,7 +379,6 @@
             <button 
                 type="submit" 
                 *ngIf="currentStep === 5"
-                [disabled]="profileForm.invalid || loading"
                 class="px-[14px] py-[8px] bg-primary border border-border rounded-lg text-white tracking-wide font-medium hover:bg-tertiary text-sm"
             >
             <p *ngIf="!loading">Submit</p>
@@ -393,6 +390,3 @@
         </div>
     </form>
 </div>
-
-
-
