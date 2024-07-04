@@ -5,6 +5,8 @@
     </div>
     <div class="flex items-center gap-[10px] md:gap-[20px]">
         <img src="../../../assets/bell.svg" class="cursor-pointer" alt="notification-icon">
-        <img src="../../../assets/Avatar.svg" class="cursor-pointer" class="w-[50%] md:w-full" alt="img-avatar">
+        <div *ngIf="userInitials" class="w-[40px] h-[40px] rounded-full bg-pendingBg text-pending flex items-center justify-center font-bold border-2 border-pending">
+            {{userInitials}}
+        </div>
     </div>
 </header>
