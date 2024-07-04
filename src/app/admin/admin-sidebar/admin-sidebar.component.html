@@ -46,8 +46,7 @@
     </div>
     <div 
         class="flex items-center gap-[10px] mt-[8rem] 2xl:mt-[25rem] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
-        routerLink="report"
-        routerLinkActive="active"
+        (click)="logout()"
     >
         <img src="../../../assets/report.svg" alt="report-icon">
         <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Logout</h5>
