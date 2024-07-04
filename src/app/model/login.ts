@@ -1,0 +1,28 @@
+export interface Login {
+    email: string,
+    password: string,
+}
+
+export interface LoginResponse {
+    message: string,
+    data: {
+        token: {
+            accessToken: string,
+            refreshToken: string
+        },
+        user: {
+            id: string,
+            name: string,
+            email: string,
+            image: string,
+            role: Role,
+            accountStatus: string
+        }
+    }
+}
+
+
+enum Role {
+    ADMIN='ADMIN',
+    PERSONNEL='PERSONNEL'
+}

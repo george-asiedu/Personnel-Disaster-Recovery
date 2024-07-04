@@ -1,0 +1,10 @@
+<div class="max-w-full h-screen flex flex-col">
+    <app-navbar/>
+
+    <div class="w-full flex h-screen">
+        <app-admin-sidebar class="w-[25%] lg:w-[23%] h-full 2xl:w-[15%] bg-white border-r"/>
+        <div class="w-[75%] lg:w-[77%] 2xl:w-[85%] h-full bg-gray50">
+            <router-outlet/>
+        </div>
+    </div>
+</div>

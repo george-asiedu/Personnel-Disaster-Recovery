@@ -1,0 +1,77 @@
+<div class="relative max-w-full overflow-hidden h-screen">
+    <ngx-spinner 
+        bdColor = "rgba(252,245,245,0.8)" 
+        size = "large" 
+        color = "#039855" 
+        type = "ball-clip-rotate-multiple" 
+        [fullScreen] = "true"
+        *ngIf="loading"
+    >
+    </ngx-spinner>
+    <div class="bg-black h-full">
+        <img src="../../../assets/2.jpg" class="w-full hidden lg:block h-full opacity-40" alt="register-image">
+    </div>
+    <div class="bg-gray-50 w-[90%] md:w-[500px] lg:w-[400px] h-auto px-[2rem] py-[2.5rem] border-none rounded-lg absolute top-[16%] md:top-[24%] lg:top-[16%] 2xl:top-[20%] right-[5%] md:right-[18%] lg:right-[5%]">
+        <div class="flex items-center flex-col mb-[10px]">
+            <img src="../../../assets/loom.svg" alt="logo">
+            <h2 class="text-heading tracking-wide text-lg font-bold">Log into your account</h2>
+            <p class="text-sm text-paragraph tracking-wide text-center">Welcome back! Please enter your credentials</p>
+        </div>
+        <form class="flex flex-col gap-[10px]" (ngSubmit)="login()" [formGroup]="loginForm">
+            <div class="flex flex-col gap-[4px] relative">
+                <label for="email" class="text-heading tracking-wide text-sm font-medium">Email</label>
+                <input 
+                    type="email"
+                    formControlName="email"
+                    placeholder="Enter your email address"
+                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
+                >
+                <div 
+                    class="absolute top-8 right-3 text-red-500 text-[12px]"
+                    *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)"
+                >
+                    <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email</div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-[4px] relative">
+                <label for="password" class="text-heading tracking-wide text-sm font-medium">Password</label>
+                <input 
+                    type="password"
+                    formControlName="password"
+                    placeholder="Create a password"
+                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
+                >
+                <div 
+                    class="absolute top-8 right-3 text-red-500 text-[12px]"
+                    *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)"
+                >
+                    <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+                    <div *ngIf="loginForm.get('password')?.errors?.['password']">Invalid password</div>
+                </div>
+            </div>
+            <div class="flex items-center justify-between text-[12px] tracking-wide">
+                <span class="flex items-center gap-[6px]">
+                    <button 
+                        class="toggle-btn"
+                        [ngClass]="{ 'isActive': isActive }"
+                        (click)="rememberLogin()"
+                    >
+                    </button>
+                    <p class="text-heading font-medium">Remember me</p>
+                </span>
+                <p class="text-primary font-medium cursor-pointer" routerLink="/forgot-password">Forgot password</p>
+            </div>
+            <button
+                class="bg-primary hover:bg-green-700 my-[10px] py-[8px] text-white text-center text-sm font-medium rounded-md"
+                type="submit" 
+            >
+                Login
+            </button>
+        </form>
+        <span class="flex items-center justify-center gap-[4px] text-xs font-medium tracking-wide">
+            <p class="text-paragraph">Don't have an account?</p>
+            <a routerLink="/register" class="text-primary cursor-pointer">Register</a>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="relative flex flex-col gap-[5px] w-full lg:py-[2rem] 2xl:py-[3rem]">
+    <div 
+        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        routerLink="/admin-page"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <img src="../../../assets/dashboard.svg" alt="dashboard-icon">
+        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Dashboard</h5>
+    </div>
+    <div 
+        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        routerLink="/admin-page/personnels"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <img src="../../../assets/users.svg" alt="users-icon">
+        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Personnels</h5>
+    </div>
+    <div 
+        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        routerLink="ranking"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <img src="../../../assets/ranking.svg" alt="ranking-icon">
+        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Personnels Rankings</h5>
+    </div>
+    <div 
+        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        routerLink="ranking"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <img src="../../../assets/ranking.svg" alt="ranking-icon">
+        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Emergency initiative</h5>
+    </div>
+    <div 
+        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        routerLink="report"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <img src="../../../assets/report.svg" alt="report-icon">
+        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Reports</h5>
+    </div>
+    <div 
+        class="flex items-center gap-[10px] mt-[8rem] 2xl:mt-[25rem] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        routerLink="report"
+        routerLinkActive="active"
+    >
+        <img src="../../../assets/report.svg" alt="report-icon">
+        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Logout</h5>
+    </div>
+    <span class="cursor-pointer bg-white absolute top-4 -right-5 shadow-md w-[40px] h-[40px] rounded-full flex items-center justify-center">
+        <img src="../../../assets/arrow-left-black.svg" alt="arrow-left">
+    </span>
+</div>

@@ -1,0 +1,398 @@
+<div class="w-full py-[25px] 2xl:py-[50px] flex items-center flex-col justify-center">
+    <section class="step-wizard">
+        <ul class="step-wizard-list">
+            <li class="step-wizard-item" [ngClass]="{'current-item': currentStep === 1}">
+                <span class="progress-count">1</span>
+                <span class="progress-label">General Information</span>
+            </li>
+            <li class="step-wizard-item" [ngClass]="{'current-item': currentStep === 2}">
+                <span class="progress-count">2</span>
+                <span class="progress-label">Professional Information</span>
+            </li>
+            <li class="step-wizard-item" [ngClass]="{'current-item': currentStep === 3}">
+                <span class="progress-count">3</span>
+                <span class="progress-label">Educational Background</span>
+            </li>
+            <li class="step-wizard-item" [ngClass]="{'current-item': currentStep === 4}">
+                <span class="progress-count">4</span>
+                <span class="progress-label">Specialization</span>
+            </li>
+            <li class="step-wizard-item" [ngClass]="{'current-item': currentStep === 5}">
+                <span class="progress-count">5</span>
+                <span class="progress-label">Personal Attributes</span>
+            </li>
+        </ul>
+    </section>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="w-[80%] 2xl:w-[60%] py-[24px]">
+        <div [ngSwitch]="currentStep" class="shadow-md bg-white rounded-xl pb-[20px] 2xl:pb-[30px] mb-[30px]">
+            <div *ngSwitchCase="1">
+                <div class="py-[24px] shadow 2xl:mb-[24px]">
+                    <h2 class="text-center text-heading tracking-wide font-medium mb-[5px]">General Information</h2>
+                    <p class="text-sm tracking-wide text-center text-paragraph">Please provide the following information about yourself</p>
+                </div>
+                <div class="flex items-center justify-between w-[80%] py-[30px] mx-auto">
+                    <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('name')?.invalid && profileForm.get('name')?.touched}">
+                            <label for="name">Name *</label>
+                            <input 
+                                formControlName="name"
+                                id="name"
+                                placeholder="Enter your name" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">Name is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('dob')?.invalid && profileForm.get('dob')?.touched}">
+                            <label for="dob">Date of birth *</label>
+                            <input 
+                                formControlName="dob"
+                                id="dob"
+                                placeholder="Enter date of birth here" 
+                                type="date"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('dob')?.invalid && profileForm.get('dob')?.touched">Date of birth is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('gender')?.invalid && profileForm.get('gender')?.touched}">
+                            <label for="gender">Gender *</label>
+                            <select 
+                                id="gender"
+                                formControlName="gender"
+                                required
+                                class="w-[320px] relative focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                                <option value="">Select your gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('gender')?.invalid && profileForm.get('gender')?.touched">Gender is required</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched}">
+                            <label for="phoneNumber">Phone number *</label>
+                            <input 
+                                formControlName="phoneNumber"
+                                id="phoneNumber"
+                                placeholder="Enter phone number here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched">Phone number is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('houseAddress')?.invalid && profileForm.get('houseAddress')?.touched}">
+                            <label for="houseAddress">House address *</label>
+                            <input 
+                                formControlName="houseAddress"
+                                id="houseAddress"
+                                placeholder="Enter house address here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('houseAddress')?.invalid && profileForm.get('houseAddress')?.touched">House address is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('photograph')?.invalid && profileForm.get('photograph')?.touched}">
+                            <label for="photograph">Photograph *</label>
+                            <input 
+                                formControlName="photograph"
+                                id="photograph"
+                                type="file"
+                                accept=".jpeg, .jpg, .png, .webp, .svg"
+                                required
+                                class="w-[320px] file:px-4 file:py-1 file:rounded-full file:border-0 file:text-sm file:font-semibold file:mr-4 file:bg-gray50 file:text-heading focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('photograph')?.invalid && profileForm.get('photograph')?.touched">Photograph is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngSwitchCase="2">
+                <div class="py-[24px] shadow mb-[24px]">
+                    <h2 class="text-center text-heading tracking-wide font-medium mb-[5px]">Professional Information</h2>
+                    <p class="text-sm tracking-wide text-center text-paragraph">Please provide the following information about your profession</p>
+                </div>
+                <div class="flex justify-between w-[80%] py-[24px] mx-auto">
+                    <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('jobTitle')?.invalid && profileForm.get('jobTitle')?.touched}">
+                            <label for="jobTitle">Job title *</label>
+                            <input 
+                                formControlName="jobTitle"
+                                id="jobTitle"
+                                placeholder="Enter job title" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('jobTitle')?.invalid && profileForm.get('jobTitle')?.touched">Job title is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('department')?.invalid && profileForm.get('department')?.touched}">
+                            <label for="department">Department/Division *</label>
+                            <input 
+                                formControlName="department"
+                                id="department"
+                                placeholder="Enter your department here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('department')?.invalid && profileForm.get('department')?.touched">Department is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]">
+                            <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('employeeId')?.invalid && profileForm.get('employeeId')?.touched}">
+                                <label for="employeeId">Employee ID *</label>
+                                <input 
+                                    formControlName="employeeId"
+                                    id="employeeId"
+                                    placeholder="Enter employee Id here" 
+                                    type="text"
+                                    required
+                                    class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                                >
+                                <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('employeeID')?.invalid && profileForm.get('employeeID')?.touched">Employee ID is required</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('employerEmail')?.invalid && profileForm.get('employerEmail')?.touched}">
+                            <div class="flex flex-col gap-[4px]">
+                                <label for="employerEmail">Employer email *</label>
+                                <input 
+                                    formControlName="employerEmail"
+                                    id="employerEmail"
+                                    placeholder="Enter employer email here" 
+                                    type="email"
+                                    required
+                                    class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                                >
+                                <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('employerEmail')?.invalid && profileForm.get('employerEmail')?.touched">Employer email is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[10px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('currentPosition')?.invalid && profileForm.get('currentPosition')?.touched}">
+                            <label for="currentPosition">Current position *</label>
+                            <input 
+                                formControlName="currentPosition"
+                                id="currentPosition"
+                                placeholder="Enter current position here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('department')?.invalid && profileForm.get('department')?.touched">Current position is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('yearsOfExperience')?.invalid && profileForm.get('yearsOfExperience')?.touched}">
+                            <label for="yearsOfExperience">Years of experience *</label>
+                            <input 
+                                formControlName="yearsOfExperience"
+                                id="yearsOfExperience"
+                                placeholder="12 years" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('yearsOfExperience')?.invalid && profileForm.get('yearsOfExperience')?.touched">Years of experience is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('currentWorkplace')?.invalid && profileForm.get('currentWorkplace')?.touched}">
+                            <label for="currentWorkplace">Current workplace *</label>
+                            <input 
+                                formControlName="currentWorkplace"
+                                id="currentWorkplace"
+                                placeholder="Enter current workplace here"
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('currentWorkplace')?.invalid && profileForm.get('currentWorkplace')?.touched">Current workplace is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngSwitchCase="3">
+                <div class="py-[24px] shadow mb-[24px]">
+                    <h2 class="text-center text-heading tracking-wide font-medium mb-[5px]">Educational background</h2>
+                    <p class="text-sm tracking-wide text-center text-paragraph">Please provide the following information about your education here</p>
+                </div>
+                <div class="flex items-center justify-between w-[80%] py-[24px] mx-auto">
+                    <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('qualification')?.invalid && profileForm.get('qualification')?.touched}">
+                            <label for="qualification">Qualification *</label>
+                            <input 
+                                formControlName="qualification"
+                                id="qualification"
+                                placeholder="Enter qualification here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('qualification')?.invalid && profileForm.get('qualification')?.touched">Qualification is required</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('fieldOfStudy')?.invalid && profileForm.get('fieldOfStudy')?.touched}">
+                            <label for="fieldOfStudy">Field of study *</label>
+                            <input 
+                                formControlName="fieldOfStudy"
+                                id="fieldOfStudy"
+                                placeholder="Enter field of study here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('fieldOfStudy')?.invalid && profileForm.get('fieldOfStudy')?.touched">field of study is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngSwitchCase="4">
+                <div class="py-[24px] shadow mb-[24px]">
+                    <h2 class="text-center text-heading tracking-wide font-medium mb-[5px]">Specialization</h2>
+                    <p class="text-sm tracking-wide text-center text-paragraph">Please provide the following information about your specialization here</p>
+                </div>
+                <div class="flex justify-between w-[80%] py-[24px] mx-auto">
+                    <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('areaOfExpertise')?.invalid && profileForm.get('areaOfExpertise')?.touched}">
+                            <label for="areaOfExpertise">Area of expertise *</label>
+                            <input 
+                                formControlName="areaOfExpertise"
+                                id="areaOfExpertise"
+                                placeholder="Enter area of expertise here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('areaOfExpertise')?.invalid && profileForm.get('areaOfExpertise')?.touched">Area of expertise is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                            <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('projectsUndertaken')?.invalid && profileForm.get('projectsUndertaken')?.touched}">
+                                <label for="projectsUndertaken">Projects undertaken *</label>
+                                <input 
+                                    formControlName="projectsUndertaken"
+                                    id="projectsUndertaken"
+                                    placeholder="Enter projects undertaken here" 
+                                    type="text"
+                                    required
+                                    class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                                >
+                                <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('projectsUndertaken')?.invalid && profileForm.get('projectsUndertaken')?.touched">Projects undertaken is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('skills')?.invalid && profileForm.get('skills')?.touched}">
+                            <label for="skills">Skills *</label>
+                            <input 
+                                formControlName="skills"
+                                id="skills"
+                                placeholder="Enter skills here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('skills')?.invalid && profileForm.get('skills')?.touched">Skills is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngSwitchCase="5">
+                <div class="py-[24px] shadow mb-[24px]">
+                    <h2 class="text-center text-heading tracking-wide font-medium mb-[5px]">Personal Attributes</h2>
+                    <p class="text-sm tracking-wide text-center text-paragraph">Please provide the following information about your attributes here</p>
+                </div>
+                <div class="flex justify-between w-[80%] py-[24px] mx-auto">
+                    <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('languageSpoken')?.invalid && profileForm.get('languageSpoken')?.touched}">
+                            <label for="languageSpoken">Language spoken *</label>
+                            <input 
+                                formControlName="languageSpoken"
+                                id="languageSpoken"
+                                placeholder="Enter language here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('languageSpoken')?.invalid && profileForm.get('languageSpoken')?.touched">Language spoken is required</div>
+                        </div>
+                        <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
+                            <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('interest')?.invalid && profileForm.get('interest')?.touched}">
+                                <label for="interest">Interest *</label>
+                                <input 
+                                    formControlName="interest"
+                                    id="interest"
+                                    placeholder="Enter interests here" 
+                                    type="text"
+                                    required
+                                    class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                                >
+                                <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('interest')?.invalid && profileForm.get('interest')?.touched">Interest is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[10px] 2xl:gap-[20px]">
+                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('hobbies')?.invalid && profileForm.get('hobbies')?.touched}">
+                            <label for="hobbies">Hobbies *</label>
+                            <input 
+                                formControlName="hobbies"
+                                id="hobbies"
+                                placeholder="Enter your hobbies here" 
+                                type="text"
+                                required
+                                class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
+                            >
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('hobbies')?.invalid && profileForm.get('hobbies')?.touched">Hobbies is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="w-full mx-auto flex items-center justify-end mt-[10px] gap-[16px]">
+            <button 
+                type="button" 
+                (click)="prevStep()"
+                *ngIf="currentStep > 1" 
+                [disabled]="profileForm.invalid || loading"
+                class="px-[14px] py-[8px] bg-white border border-border rounded-lg text-heading tracking-wide font-medium hover:bg-slate-50 text-sm"
+            >
+                Previous
+            </button>
+            <button 
+                type="button" 
+                (click)="nextStep()"
+                *ngIf="currentStep < 5"
+                [disabled]="profileForm.invalid || loading"
+                class="px-[14px] py-[8px] bg-primary border border-border rounded-lg text-white tracking-wide font-medium hover:bg-tertiary text-sm"
+            >
+                <p *ngIf="!loading">Save & continue</p>
+                <span *ngIf="loading" class="flex items-center gap-[8px]">
+                    <app-spinner/>
+                    Saving...
+                </span>
+            </button>
+            <button 
+                type="submit" 
+                *ngIf="currentStep === 5"
+                [disabled]="profileForm.invalid || loading"
+                class="px-[14px] py-[8px] bg-primary border border-border rounded-lg text-white tracking-wide font-medium hover:bg-tertiary text-sm"
+            >
+            <p *ngIf="!loading">Submit</p>
+            <span *ngIf="loading" class="flex items-center gap-[8px]">
+                <app-spinner/>
+                Submitting data...
+            </span>
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
