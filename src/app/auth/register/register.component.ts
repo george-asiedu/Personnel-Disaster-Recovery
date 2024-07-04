@@ -6,6 +6,9 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { NgClass, NgIf } from '@angular/common';
 import { AuthService } from '../authService/auth.service';
 import { NgToastService } from 'ng-angular-popup';
+import { nameValidator } from '../../validators/nameValidator';
+import { passwordValidator } from '../../validators/passwordValidator';
+import { confirmPasswordValidator } from '../../validators/confirmPasswordValidator';
 
 @Component({
   selector: 'app-register',
@@ -32,19 +35,11 @@ export class RegisterComponent {
     private toast: NgToastService
   ) {  
       this.registerForm = this.fb.group({
-        name: ['', Validators.required],
+        name: ['', [Validators.required, nameValidator()]],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
+        password: ['', [Validators.required, passwordValidator()]],
         confirmPassword: ['', Validators.required]
-      }, { validators: this.passwordMatchValidator })
-  }
-
-  passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword')
-
-    if (!password || !confirmPassword) return null;
-    return password.value === confirmPassword.value ? null : { passwordMismatch: true }
+      }, { validators: confirmPasswordValidator('password', 'confirmPassword') })
   }
 
   register(): void {

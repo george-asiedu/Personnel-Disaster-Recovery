@@ -23,6 +23,7 @@
                 <input 
                     type="text"
                     id="name"
+                    required
                     placeholder="Enter your name"
                     formControlName="name"
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
@@ -32,6 +33,7 @@
                     *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.touched || registerForm.get('name')?.dirty)"
                 >
                     <div *ngIf="registerForm.get('name')?.errors?.['required']">Name is required</div>
+                    <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">Name must only contain alphabets</div>
                 </div>
             </div>
             <div class="flex flex-col gap-[4px] relative">
@@ -39,6 +41,7 @@
                 <input 
                     type="email"
                     id="email"
+                    required
                     formControlName="email"
                     placeholder="Enter your email address"
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
@@ -56,6 +59,7 @@
                 <input 
                     type="password"
                     id="password"
+                    required
                     formControlName="password"
                     placeholder="Create a password"
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
@@ -65,7 +69,7 @@
                     *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)"
                 >
                     <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
-                    <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Must be at least 8 characters long</div>
+                    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">Password is not strong enough</div>
                 </div>
             </div>
              <div class="flex flex-col gap-[4px] relative">
@@ -73,6 +77,7 @@
                 <input 
                     type="password"
                     id="confirmPassword"
+                    required
                     formControlName="confirmPassword"
                     placeholder="Confirm password"
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
@@ -82,7 +87,7 @@
                     *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)"
                 >
                     <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required</div>
-                    <div *ngIf="registerForm.hasError('passwordMismatch') && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">Passwords do not match</div>
+                    <div *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordsDoNotMatch'] && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">Passwords do not match</div>
                 </div>
             </div>
             <button
