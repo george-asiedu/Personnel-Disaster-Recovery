@@ -33,17 +33,16 @@
                 </div>
                 <div class="flex items-center justify-between w-[80%] py-[30px] mx-auto">
                     <div class="flex flex-col gap-[15px] 2xl:gap-[20px]">
-                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('name')?.invalid && profileForm.get('name')?.touched}">
+                        <div class="flex flex-col gap-[4px]">
                             <label for="name">Name *</label>
                             <input 
                                 formControlName="name"
                                 id="name"
-                                placeholder="Enter your name" 
                                 type="text"
                                 required
+                                [readOnly]="true"
                                 class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
                             >
-                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">Name is required</div>
                         </div>
                         <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('dob')?.invalid && profileForm.get('dob')?.touched}">
                             <label for="dob">Date of birth *</label>
@@ -82,9 +81,10 @@
                                 placeholder="Enter phone number here" 
                                 type="text"
                                 required
+                                appPhoneNumber
                                 class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
                             >
-                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched">Phone number is required</div>
+                            <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched">Phone number is required and should be +233XXXXXXXXX</div>
                         </div>
                         <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('houseAddress')?.invalid && profileForm.get('houseAddress')?.touched}">
                             <label for="houseAddress">House address *</label>
