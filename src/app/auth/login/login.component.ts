@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../authService/auth.service';
-import { NgToastModule, NgToastService } from 'ng-angular-popup';
+import { NgToastService } from 'ng-angular-popup';
 import { Login } from '../../model/login';
 
 @Component({
