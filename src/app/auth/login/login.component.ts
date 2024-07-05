@@ -7,7 +7,6 @@ import { AuthService } from '../authService/auth.service';
 import { NgToastService } from 'ng-angular-popup';
 import { Login, LoginResponse } from '../../model/login';
 import { UserDataService } from '../../shared/user-data/user-data.service';
-import { passwordValidator } from '../../validators/passwordValidator';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +25,7 @@ export class LoginComponent {
   loginForm: FormGroup
   public loading = false
   public isActive: boolean = false
+  public showPassword: boolean = false
 
   constructor(
     private as: AuthService,
@@ -77,5 +77,9 @@ export class LoginComponent {
 
   rememberLogin(): void {
     this.isActive = !this.isActive
+  }
+
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword
   }
 }

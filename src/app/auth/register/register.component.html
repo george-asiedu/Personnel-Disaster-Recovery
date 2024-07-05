@@ -11,7 +11,7 @@
     <div class="bg-black h-full">
         <img src="../../../assets/register.jpg" class="w-full hidden lg:block opacity-40" alt="register-image">
     </div>
-    <div class="bg-gray-50 w-[90%] md:w-[500px] lg:w-[400px] h-auto px-[2rem] py-[1.5rem] border-none rounded-lg absolute top-[13%] md:top-[20%] lg:top-[7%] 2xl:top-[14%] md:right-[18%] right-[5%] lg:right-[5%] 2xl:right-[10%]">
+    <div class="bg-gray-50 w-[90%] md:w-[500px] lg:w-[400px] h-auto px-[2rem] py-[1.5rem] border-none rounded-lg absolute top-[13%] md:top-[20%] lg:top-[5%] 2xl:top-[14%] md:right-[18%] right-[5%] lg:right-[5%] 2xl:right-[10%]">
         <div class="flex items-center flex-col mb-[10px]">
             <img src="../../../assets/loom.svg" alt="logo">
             <h2 class="text-heading tracking-wide text-lg font-bold">Create an account</h2>
@@ -29,7 +29,7 @@
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
                 >
                 <div 
-                    class="absolute top-8 right-3 text-red-500 text-[12px]"
+                    class="text-red-500 text-[12px] flex items-center justify-between"
                     *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.touched || registerForm.get('name')?.dirty)"
                 >
                     <div *ngIf="registerForm.get('name')?.errors?.['required']">Name is required</div>
@@ -47,7 +47,7 @@
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
                 >
                 <div 
-                    class="absolute top-8 right-3 text-red-500 text-[12px]"
+                    class="text-red-500 text-[12px] flex items-center justify-between"
                     *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)"
                 >
                     <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</div>
@@ -57,15 +57,18 @@
             <div class="flex flex-col gap-[4px] relative">
                 <label for="password" class="text-heading tracking-wide text-sm font-medium">Password</label>
                 <input 
-                    type="password"
+                    type="{{ showPassword ? 'text' : 'password'}}"
                     id="password"
                     required
                     formControlName="password"
                     placeholder="Create a password"
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
                 >
+                <div class="absolute top-[50%] right-0 cursor-pointer max-w-[40px]" (click)="toggleShowPassword()">
+                    <img src="../../../assets/{{ showPassword ? 'eye-open.svg' : 'eye-close.svg'}}" class="w-[50%]" alt="eye-icon">
+                </div>
                 <div 
-                    class="absolute top-8 right-3 text-red-500 text-[12px]"
+                    class="text-red-500 text-[12px] flex items-center justify-between"
                     *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)"
                 >
                     <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
@@ -75,15 +78,18 @@
              <div class="flex flex-col gap-[4px] relative">
                 <label for="confirmPassword" class="text-heading tracking-wide text-sm font-medium">Confirm password</label>
                 <input 
-                    type="password"
+                    type="{{ showConfirmPassword ? 'text' : 'password'}}"
                     id="confirmPassword"
                     required
                     formControlName="confirmPassword"
                     placeholder="Confirm password"
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
                 >
+                <div class="absolute top-[50%] right-0 cursor-pointer max-w-[40px]" (click)="toggleShowConfirmPassword()">
+                    <img src="../../../assets/{{ showConfirmPassword ? 'eye-open.svg' : 'eye-close.svg'}}" class="w-[50%]" alt="eye-icon">
+                </div>
                 <div 
-                    class="absolute top-8 right-3 text-red-500 text-[12px]"
+                    class="text-red-500 text-[12px] flex items-center justify-between"
                     *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)"
                 >
                     <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required</div>

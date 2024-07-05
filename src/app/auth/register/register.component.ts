@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Register } from '../../model/register';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
@@ -26,6 +26,8 @@ import { confirmPasswordValidator } from '../../validators/confirmPasswordValida
 export class RegisterComponent {
   registerForm: FormGroup
   public loading: boolean = false
+  public showPassword: boolean = false
+  public showConfirmPassword: boolean = false
 
   constructor(
     private as: AuthService,
@@ -62,12 +64,19 @@ export class RegisterComponent {
         }, 2000)
         this.router.navigate(['/verify-email'])
       },
-      error: (err) => {
+      error: () => {
         this.loading = false
         this.toast.danger("Account registration failed", "Failed", 3000)
         this.spinner.hide()
-        console.error('registration failed', err)
       }
     }))
+  }
+
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword
+  }
+
+  toggleShowConfirmPassword(): void {
+    this.showConfirmPassword = !this.showConfirmPassword
   }
 }
