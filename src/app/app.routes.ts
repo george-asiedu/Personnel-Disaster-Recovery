@@ -4,13 +4,18 @@ import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { LandingPageComponent } from './home/landing-page/landing-page.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminDashboardHomeComponent } from './admin/admin-dashboard-home/admin-dashboard-home.component';
 import { PersonnelsComponent } from './admin/personnels/personnels.component';
 import { PersonnelDetailsComponent } from './admin/personnel-details/personnel-details.component';
 import { EmailConfirmationComponent } from './auth/email-confirmation/email-confirmation.component';
 import { PersonnelProfileComponent } from './personnel/personnel-profile/personnel-profile.component';
+import { ResetEmailComponent } from './auth/reset-email/reset-email.component';
+import { authGuard } from './guard/auth.guard';
+import { Role } from './model/login';
+import { PageNotFoundComponent } from './wildcard-routes/page-not-found/page-not-found.component';
+import { UnauthorizedAccessComponent } from './wildcard-routes/unauthorized-access/unauthorized-access.component';
+import { HomeComponent } from './home/home.component';
 
 
 export const routes: Routes = [
@@ -45,9 +50,16 @@ export const routes: Routes = [
         component: VerifyEmailComponent
     },
     {
+        path: 'reset-email',
+        title: 'Personnel Disaster Recovery | Reset Email Page',
+        component: ResetEmailComponent
+    },
+    {
         path: 'admin-page',
         title: 'Personnel Disaster Recovery | Admin Dashboard Page',
         component: AdminDashboardComponent,
+        canActivate: [authGuard],
+        data: { roles: [Role.ADMIN] },
         children: [
             { path: '',  component: AdminDashboardHomeComponent },
             { path: 'personnels',  component: PersonnelsComponent },
@@ -57,11 +69,25 @@ export const routes: Routes = [
     {
         path: 'personnel-profile',
         component: PersonnelProfileComponent,
-        title: 'Personnel Disaster Recovery | Personnel Profile Page'
+        title: 'Personnel Disaster Recovery | Personnel Profile Page',
+        canActivate: [authGuard],
+        data: { roles: [Role.PERSONNEL] }
+    },
+    {
+        path: 'unauthorized-access',
+        component: UnauthorizedAccessComponent,
+        title: 'Personnel Disaster Recovery | Unauthorized Access Page',
+        canActivate: [authGuard],
+        data: { roles: [Role.PERSONNEL] }
     },
     {
         path: '',
         title: 'Personnel Disaster Recovery | Home Page',
-        component: LandingPageComponent
+        component: HomeComponent
+    },
+    {
+        path: '**',
+        title: 'Personnel Disaster Recovery | Page Not Found Page',
+        component: PageNotFoundComponent
     }
 ]
