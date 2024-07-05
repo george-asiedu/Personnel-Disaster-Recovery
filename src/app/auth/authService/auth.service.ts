@@ -2,9 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development'
 import { Register } from '../../model/register';
-import { Observable } from 'rxjs';
-import { Login, LoginResponse } from '../../model/login';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Login, LoginResponse, Role } from '../../model/login';
 import { ResetPassword } from '../../model/reset-password';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,19 @@ export class AuthService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  };
+  }
 
-  constructor(private http: HttpClient) { }
+  private currentUserSubject: BehaviorSubject<LoginResponse | null>
+  public currentUser: Observable<LoginResponse | null>
+
+  constructor(private http: HttpClient, private router: Router) {
+    this.currentUserSubject = new BehaviorSubject<LoginResponse | null>(JSON.parse(localStorage.getItem('currentUser')!))
+    this.currentUser = this.currentUserSubject.asObservable()
+  }
+
+  public get currentUserValue(): LoginResponse | null {
+    return this.currentUserSubject.value
+  }
 
   Register(user: Register): Observable<Register> {
     return this.http.post<Register>(`${this.baseURL}/auth/register`, user, this.httpOptions)
@@ -25,6 +36,13 @@ export class AuthService {
 
   Login(user: Login): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.baseURL}/auth/login`, user, this.httpOptions)
+    .pipe(
+      map((response: LoginResponse) => {
+        localStorage.setItem('currentUser', JSON.stringify(response))
+        this.currentUserSubject.next(response)
+        return response
+      })
+    )
   }
 
   submitEmail(email: string): Observable<string> {
@@ -36,7 +54,20 @@ export class AuthService {
   }
 
   confirmEmail(token: string): Observable<{ message: string }> {
-    console.log('confirm email', token)
     return this.http.get<{ message: string }>(`${this.baseURL}/auth/account-verification?token=${token}`)
+  }
+
+  logout(): void {
+    localStorage.removeItem('currentUser')
+    this.currentUserSubject.next(null)
+    this.router.navigate(['/login'])
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.currentUserValue
+  }
+
+  getUserRole(): Role | null {
+    return this.currentUserValue?.data.user.role || null
   }
 }
