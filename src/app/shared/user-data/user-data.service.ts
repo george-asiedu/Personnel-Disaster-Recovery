@@ -9,7 +9,7 @@ export class UserDataService {
   private userSubject = new BehaviorSubject<LoginResponse['data']['user'] | null>(this.loadUserData())
   user$ = this.userSubject.asObservable()
 
-  constructor() { }
+  constructor() {}
 
   setUser(user: LoginResponse['data']['user']) {
     this.userSubject.next(user)
