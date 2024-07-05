@@ -17,7 +17,8 @@ module.exports = {
         pending: '#175CD3',
         pendingBg: '#EFF8FF',
         suspend: '#B42318',
-        suspendBg: '#FEF3F2'
+        suspendBg: '#FEF3F2',
+        homeBg: '#ECFDF3'
       }
     },
   },
