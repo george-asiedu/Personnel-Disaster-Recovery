@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { UserDataService } from '../../shared/user-data/user-data.service';
+import { Component } from '@angular/core'
+import { Router, RouterModule } from '@angular/router'
+import { UserDataService } from '../../shared/user-data/user-data.service'
 
 @Component({
   selector: 'app-admin-sidebar',
