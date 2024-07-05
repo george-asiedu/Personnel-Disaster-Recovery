@@ -22,7 +22,7 @@ export interface LoginResponse {
 }
 
 
-enum Role {
+export enum Role {
     ADMIN='ADMIN',
     PERSONNEL='PERSONNEL'
 }
