@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../authService/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-forgot-password',
@@ -24,8 +25,9 @@ export class ForgotPasswordComponent {
   constructor(
     private fb: FormBuilder,
     private as: AuthService,
+    private spinner: NgxSpinnerService,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private toast: NgToastService
   ) {
     this.forgotForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -38,22 +40,23 @@ export class ForgotPasswordComponent {
     }
 
     this.loading = true
-    this.spinner.show
+    this.spinner.show()
+
     const email: string = this.forgotForm.value
 
     this.as.submitEmail(email).subscribe({
       next: () => {
         this.loading = false
+        this.toast.success('Email sent successfully', 'success', 3000)
         setTimeout(() => {
           this.spinner.hide()
         }, 2000)
-        this.router.navigate(['/reset-password'])
-        console.log('email sent', email)
+        this.router.navigate(['/reset-email'])
       },
       error: () => {
         this.loading = false
+        this.toast.danger('Email sent failed', 'Failed', 3000)
         this.spinner.hide()
-        console.error('email send fail', email)
       }
     })
 
