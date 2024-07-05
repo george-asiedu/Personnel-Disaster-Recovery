@@ -1,0 +1,129 @@
+<div class="bg-white h-auto max-w-full">
+    <div class="w-full h-screen px-[5%] py-[1.7%] 2xl:py-[3%] bg-homeBg relative">
+        <header class="w-full bg-white px-[16px] py-[14px] sticky z-10 rounded-[16px] shadow-md flex items-center justify-between"> 
+            <span class="flex items-center gap-[10px]">
+                <img src="../../assets/loom.svg" alt="logo">
+                <h2 class="text-primary font-bold tracking-wide text-sm md:text-lg">Personnel Disaster Recovery</h2>
+            </span>
+            <nav class="flex items-center gap-[16px]">
+                <a href="#home" class="text-sm tracking-wide transition duration-300 ease-linear text-heading hover:text-primary font-medium px-[10px]">Home</a>
+                <a href="#about_us" class="text-sm tracking-wide transition duration-300 ease-linear text-heading hover:text-primary font-medium px-[10px]">About us</a>
+                <a href="#services" class="text-sm tracking-wide transition duration-300 ease-linear text-heading hover:text-primary font-medium px-[10px]">Services</a>
+                <a href="#contact_us" class="text-sm tracking-wide transition duration-300 ease-linear text-heading hover:text-primary font-medium px-[10px]">Contact us</a>
+            </nav>
+            <div class="flex items-center gap-[16px]">
+                <button 
+                    type="button"
+                    routerLink="/login" 
+                    class="bg-white hover:bg-gray50 text-heading text-sm font-medium text-center px-[14px] py-[6px] rounded-lg border border-heading">
+                    Login
+                </button>
+                <button 
+                    type="button" 
+                    routerLink="/register"
+                    class="bg-primary hover:bg-tertiary text-white text-sm font-medium text-center px-[14px] py-[6px] rounded-lg border border-primary">
+                    Register
+                </button>
+            </div>
+        </header>
+        <div class="absolute top-0 left-0">
+            <img src="../../assets/vector-2.svg" alt="vector-2">
+        </div>
+        <div class="absolute bottom-0 right-0">
+            <img src="../../assets/vector-1.svg" alt="vector-2">
+        </div>
+        <section class="grid lg:grid-cols-2 gap-[1rem] mt-[3rem] 2xl:mt-[7rem]" id="home">
+            <div class="flex flex-col gap-[1.5rem] 2xl:gap-[2rem]">
+                <h1 class="text-heading font-bold lg:text-3xl 2xl:text-5xl tracking-wide">
+                    Comprehensive Personnel <br>
+                    Recovery solutions for <br>
+                    Disaster Resilience
+                </h1>
+                <p class="tracking-wide text-sm text-paragraph">
+                    Ensure the safety and continuity of your operations by protecting <br>
+                    essential personnel. Our solutions prioritize the well-being of critical <br>
+                    team members, enabling your organization to remain resilient and <br>
+                    responsive in the face of any disaster. Safeguard your most valuable <br>
+                    asset—your people—with our tailored recovery strategies.
+                </p>
+                <button 
+                    type="button" 
+                    routerLink="/register"
+                    class="bg-primary w-fit hover:bg-tertiary text-white text-sm font-medium text-center px-[14px] py-[8px] rounded-lg border border-primary">
+                    Get started for free
+                </button>
+            </div>
+            <div class="flex pt-[1.5rem] 2xl:justify-between w-full z-10">
+                <div class="w-[48%] flex flex-col gap-[10px]">
+                    <span>
+                        <img src="../../assets/Avatar group.svg" class="w-[40%]" alt="avatar-group">
+                    </span>
+                    <p class="tracking-wide text-sm text-paragraph">
+                        More than 9.5k members are <br> connected with us.
+                    </p>
+                    <span>
+                        <img src="../../assets/woman-1.png" class="w-[85%] 2xl:w-full" alt="woman-1">
+                    </span>
+                </div>
+                <div class="w-[48%] flex flex-col gap-[20px] pt-[2rem]">
+                    <span class="relative rounded-[16px] h-[250px] 2xl:h-[64%] w-[260px] 2xl:w-full bg-[#a6f4c5]">
+                        <img src="../../assets/nurse.png" class="absolute -right-[60px] 2xl:-right-[80px] -top-[60px] 2xl:-top-[97px] 2xl:w-full" alt="nurse">
+                    </span>
+                    <div class="flex items-center justify-between 2xl:justify-start 2xl:gap-[5rem]">
+                        <span>
+                            <h4 class="font-bold tracking-wide text-2xl">10k +</h4>
+                            <p class="text-paragraph text-sm font-medium mt-[5px]">Lives impact</p>
+                        </span>
+                        <span>
+                            <h4 class="font-bold tracking-wide text-2xl">98%</h4>
+                            <p class="text-paragraph text-sm font-medium mt-[5px]">User satisfaction</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="w-full h-screen px-[5%] py-[2%] 2xl:py-[4%] bg-white flex flex-col" id="about_us">
+        <h3 class="tracking-wide text-heading font-bold text-xl text-center mb-2">About us</h3>
+        <p class="text-paragraph tracking-wide text-sm text-center mb-[2rem]">
+            Ensure the safety and continuity of your operations by protecting essential personnel. Our solutions prioritize the well- <br>
+            being of critical team members, enabling your organization to remain resilient and responsive in the face of any <br>
+            disaster. Safeguard your most valuable asset—your people—with our tailored recovery strategies.
+        </p>
+        <div class="flex w-full gap-[3rem]">
+            <div class="relative rounded-[16px] span-img w-[40%] 2xl:w-[50%] h-[66vh]">
+                <span class="absolute bottom-0 right-0 bg-tertiary py-[40px] px-[16px] text-white radius">
+                    <h4 class="font-bold tracking-wide text-2xl">10k +</h4>
+                    <p class="text-sm font-medium mt-[5px]">Lives impact</p>
+                </span>
+            </div>
+            <div class="flex flex-col gap-[1rem] w-[60%] 2xl:w-[50%] 2xl:gap-[2rem] 2xl:pt-[2rem]">
+                <p class="tracking-wide text-paragraph text-sm text-justify">
+                    We provide essential solutions to protect and support critical personnel during <br>
+                    emergencies. Our goal is to ensure operational continuity and resilience through <br>
+                    strategic recovery plans, safeguarding your most valuable assets—your people. With <br>
+                    our expertise, organizations can confidently face any disaster, knowing their key <br>
+                    team members are prioritized and prepared.
+                </p>
+                <p class="tracking-wide text-paragraph text-sm text-justify">
+                    Our vision is to be the leading provider of comprehensive personnel recovery <br>
+                    solutions, ensuring that every organization is equipped to protect and support its <br>
+                    most vital assets in times of crisis. We aim to create a world where businesses can <br>
+                    maintain operational stability and swiftly recover from disasters, thanks to our <br>
+                    innovative and strategic approach to personnel protection. By fostering resilience <br>
+                    and preparedness, we aspire to enhance the overall safety and security of <br>
+                    workplaces, empowering organizations to thrive even in the face of adversity. <br>
+                    Through our commitment to excellence and continuous improvement, we strive to <br>
+                    set new standards in disaster recovery and personnel protection, making <br>
+                    a significant positive impact on the global business community.
+                </p>
+                <button 
+                    type="button" 
+                    routerLink="/register"
+                    class="bg-primary w-fit hover:bg-tertiary text-white text-sm font-medium text-center px-[14px] py-[8px] rounded-lg border border-primary">
+                    Sign up now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
