@@ -10,3 +10,16 @@ body {
     background-color: #F9FAFB;
     font-family: "Inter", sans-serif;
 }
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e9ecf3;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#62f0b0, #D1FADF);
+    border-radius: 16px;
+}
