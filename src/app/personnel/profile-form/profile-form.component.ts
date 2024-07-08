@@ -81,9 +81,9 @@ export class ProfileFormComponent {
       return
     }
 
-    this.loading = true
+    // this.loading = true
 
-    const profileData: Profile = this.profileForm.value
+    // const profileData: Profile = this.profileForm.value
 
     
   }

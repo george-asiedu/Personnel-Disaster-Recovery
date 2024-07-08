@@ -133,7 +133,7 @@
                             >
                             <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('jobTitle')?.invalid && profileForm.get('jobTitle')?.touched">Job title is required</div>
                         </div>
-                        <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('department')?.invalid && profileForm.get('department')?.touched}">
+                        <!-- <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('department')?.invalid && profileForm.get('department')?.touched}">
                             <label for="department">Department/Division *</label>
                             <input 
                                 formControlName="department"
@@ -144,7 +144,7 @@
                                 class="w-[320px] focus-within:outline-none caret-primary border border-border focus-within:border-heading py-[8px] px-[14px] placeholder:text-sm placeholder:text-paragraph rounded-lg"
                             >
                             <div class="text-red-400 text-xs tracking-wide mb-0 leading-none" *ngIf="profileForm.get('department')?.invalid && profileForm.get('department')?.touched">Department is required</div>
-                        </div>
+                        </div> -->
                         <div class="flex flex-col gap-[4px]">
                             <div class="flex flex-col gap-[4px]" [ngClass]="{'has-error': profileForm.get('employeeId')?.invalid && profileForm.get('employeeId')?.touched}">
                                 <label for="employeeId">Employee ID *</label>
