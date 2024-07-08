@@ -11,15 +11,15 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class TableComponent {
   personnels = [
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Pending' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Verified' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Pending' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Verified' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Pending' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Verified' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Pending' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Verified' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', status: 'Suspend' }
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 3, status: 'Pending' },
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 1, status: 'Verified' },
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 2, status: 'Pending' },
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 2, status: 'Verified' },
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 3, status: 'Pending' },
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 2, status: 'Verified' },
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 1, status: 'Pending' },
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 1, status: 'Verified' },
+    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 2, status: 'Suspend' }
   ];
 
   isDropdownVisible: boolean[] = Array(this.personnels.length).fill(false);
