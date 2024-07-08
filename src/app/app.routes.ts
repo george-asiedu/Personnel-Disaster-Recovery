@@ -77,8 +77,8 @@ export const routes: Routes = [
         path: 'unauthorized-access',
         component: UnauthorizedAccessComponent,
         title: 'Personnel Disaster Recovery | Unauthorized Access Page',
-        canActivate: [authGuard],
-        data: { roles: [Role.PERSONNEL] }
+        // canActivate: [authGuard],
+        // data: { roles: [Role.PERSONNEL] }
     },
     {
         path: '',
