@@ -18,7 +18,9 @@ module.exports = {
         pendingBg: '#EFF8FF',
         suspend: '#B42318',
         suspendBg: '#FEF3F2',
-        homeBg: '#ECFDF3'
+        homeBg: '#ECFDF3',
+        banner: "#101828",
+        spanImg: '#EAECF0'
       }
     },
   },
