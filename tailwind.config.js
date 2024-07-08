@@ -21,7 +21,11 @@ module.exports = {
         homeBg: '#ECFDF3',
         banner: "#101828",
         spanImg: '#EAECF0'
-      }
+      },
+      screens: {
+        'lg': '998px',
+        '3xl': '1600px'
+      },
     },
   },
   plugins: [],
