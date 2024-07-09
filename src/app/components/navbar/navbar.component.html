@@ -1,12 +1,34 @@
-<header class="bg-white shadow-sm shadow-gray-200 px-[2%] w-full py-[10px] sticky top-0 z-10 overflow-hidden flex items-center justify-between">
+<header class="bg-white shadow shadow-gray-200 px-[2%] w-full py-[20px] overflow-hidden flex items-center justify-between">
     <div class="flex items-center gap-[10px]">
         <img src="../../../assets/loom.svg" alt="logo">
-        <h2 class="text-primary font-bold tracking-wide text-sm md:text-lg">Personnel Disaster Recovery</h2>
+        <h2 class="text-primary font-bold tracking-wide text-sm md:text-lg lg:text-2xl">Personnel Disaster Recovery</h2>
     </div>
     <div class="flex items-center gap-[10px] md:gap-[20px]">
         <img src="../../../assets/bell.svg" class="cursor-pointer" alt="notification-icon">
-        <div *ngIf="userInitials" class="w-[40px] h-[40px] rounded-full cursor-pointer bg-pendingBg text-pending flex items-center justify-center font-bold border-2 border-pending">
-            {{userInitials}}
+        <div class="flex items-center gap-[10px]" (click)="toggleDropdown()">
+            <div *ngIf="userInitials" class="w-[40px] h-[40px] rounded-full cursor-pointer bg-pendingBg text-pending flex items-center justify-center font-bold border-2 border-pending">
+                {{userInitials}}
+            </div>
+            <img src="../../../assets/chevron-down.svg" class="cursor-pointer" alt="chevron-down">
+        </div>
+        <div *ngIf="isDropdownOpen" class="absolute right-[7px] z-10 top-[11%] 3xl:top-[9%] bg-white shadow-md w-[300px] border-none rounded-lg flex flex-col">
+            <div class="flex items-center gap-[10px] py-[8px] px-[1rem] cursor-pointer hover:bg-gray-50 border-b border-border">
+                <span *ngIf="userInitials" class="w-[50px] h-[50px] rounded-full bg-gray-300 text-heading flex items-center justify-center font-bold border-4 border-white shadow-md">
+                    {{userInitials}}
+                </span>
+                <span>
+                    <h4 class="text-heading tracking-wide font-medium">{{username}}</h4>
+                    <p class="text-sm tracking-wide text-paragraph">{{email}}</p>
+                </span>
+            </div>
+            <div (click)="accountSettings()" class="flex items-center gap-[10px] cursor-pointer hover:bg-gray-50 px-[1rem] py-[8px] border-b border-border">
+                <img src="../../../assets/setting.svg" alt="settings">
+                <h4 class="text-heading tracking-wide font-medium text-sm">Account settings</h4>
+            </div>
+            <div (click)="logout()" class="flex items-center gap-[10px] cursor-pointer hover:bg-gray-50 px-[1rem] py-[8px]">
+                <img src="../../../assets/logout.svg" alt="logout">
+                <h4 class="text-heading tracking-wide font-medium text-sm">Log out</h4>
+            </div>
         </div>
     </div>
 </header>
