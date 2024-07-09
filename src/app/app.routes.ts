@@ -1,64 +1,61 @@
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './auth/register/register.component';
-import { LoginComponent } from './auth/login/login.component';
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminDashboardHomeComponent } from './admin/admin-dashboard-home/admin-dashboard-home.component';
 import { PersonnelsComponent } from './admin/personnels/personnels.component';
 import { PersonnelDetailsComponent } from './admin/personnel-details/personnel-details.component';
-import { EmailConfirmationComponent } from './auth/email-confirmation/email-confirmation.component';
-import { PersonnelProfileComponent } from './personnel/personnel-profile/personnel-profile.component';
-import { ResetEmailComponent } from './auth/reset-email/reset-email.component';
-import { authGuard } from './guard/auth.guard';
+import { canActivate, canDeactivate, canMatch } from './guard/auth.guard';
 import { Role } from './model/login';
-import { PageNotFoundComponent } from './wildcard-routes/page-not-found/page-not-found.component';
-import { UnauthorizedAccessComponent } from './wildcard-routes/unauthorized-access/unauthorized-access.component';
-import { HomeComponent } from './home/home.component';
 
 
 export const routes: Routes = [
     {
         path: 'register',
         title: 'Personnel Disaster Recovery | Register Page',
-        component: RegisterComponent
+        loadComponent: () => import('../app/auth/register/register.component')
+            .then(c => c.RegisterComponent),
     },
     {
         path: 'login',
         title: 'Personnel Disaster Recovery | Login Page',
-        component: LoginComponent
+        loadComponent: () => import('../app/auth/login/login.component')
+            .then(c => c.LoginComponent),
     },
     {
         path: 'forgot-password',
         title: 'Personnel Disaster Recovery | Forgot Password Page',
-        component: ForgotPasswordComponent
+        loadComponent: () => import('../app/auth/forgot-password/forgot-password.component')
+            .then(c => c.ForgotPasswordComponent),
     },
     {
         path: 'reset-password',
         title: 'Personnel Disaster Recovery | Reset Password Page',
-        component: ResetPasswordComponent
+        loadComponent: () => import('../app/auth/reset-password/reset-password.component')
+            .then(c => c.ResetPasswordComponent),
     },
     {
         path: 'email-confirmation',
         title: 'Personnel Disaster Recovery | Email Confirmation Page',
-        component: EmailConfirmationComponent
+        loadComponent: () => import('../app/auth/email-confirmation/email-confirmation.component')
+            .then(c => c.EmailConfirmationComponent),
     },
     {
         path: 'verify-email',
         title: 'Personnel Disaster Recovery | Verify Email Page',
-        component: VerifyEmailComponent
+        loadComponent: () => import('../app/auth/verify-email/verify-email.component')
+            .then(c => c.VerifyEmailComponent),
     },
     {
         path: 'reset-email',
         title: 'Personnel Disaster Recovery | Reset Email Page',
-        component: ResetEmailComponent
+        loadComponent: () => import('../app/auth/reset-email/reset-email.component')
+            .then(c => c.ResetEmailComponent),
     },
     {
         path: 'admin-page',
         title: 'Personnel Disaster Recovery | Admin Dashboard Page',
-        component: AdminDashboardComponent,
-        canActivate: [authGuard],
+        loadComponent: () => import('../app/admin/admin-dashboard/admin-dashboard.component')
+            .then(c => c.AdminDashboardComponent),
+        canActivate: [canActivate],
+        canMatch: [canMatch],
         data: { roles: [Role.ADMIN] },
         children: [
             { path: '',  component: AdminDashboardHomeComponent },
@@ -68,26 +65,31 @@ export const routes: Routes = [
     },
     {
         path: 'personnel-profile',
-        component: PersonnelProfileComponent,
+        loadComponent: () => import('../app/personnel/personnel-profile/personnel-profile.component')
+            .then(c => c.PersonnelProfileComponent),
         title: 'Personnel Disaster Recovery | Personnel Profile Page',
-        canActivate: [authGuard],
+        canActivate: [canActivate],
+        canMatch: [canMatch],
+        // canDeactivate: [canDeactivate],
         data: { roles: [Role.PERSONNEL] }
     },
     {
-        path: 'unauthorized-access',
-        component: UnauthorizedAccessComponent,
-        title: 'Personnel Disaster Recovery | Unauthorized Access Page',
-        // canActivate: [authGuard],
-        // data: { roles: [Role.PERSONNEL] }
+        path: 'account-settings',
+        title: 'Personnel Disaster Recovery | Account Settings Page',
+        loadComponent: () => import('../app/account-settings/account-settings.component')
+        .then(c => c.AccountSettingsComponent)
     },
     {
         path: '',
         title: 'Personnel Disaster Recovery | Home Page',
-        component: HomeComponent
+        loadComponent: () => import('../app/home/home.component')
+            .then(c => c.HomeComponent),
+            pathMatch: 'full'
     },
     {
         path: '**',
         title: 'Personnel Disaster Recovery | Page Not Found Page',
-        component: PageNotFoundComponent
+        loadComponent: () => import('../app/wildcard-routes/page-not-found/page-not-found.component')
+            .then(c => c.PageNotFoundComponent)
     }
 ]
