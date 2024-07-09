@@ -60,12 +60,6 @@ export class LoginComponent {
         }, 2000)
 
         this.userService.setUser(response.data.user)
-        
-        if(response.data.user.role === "ADMIN") {
-          this.router.navigate(['/admin-page'])
-        }  else {
-          this.router.navigate(['/personnel-profile'])
-        }     
       },
       error: () => {
         this.loading = false
