@@ -28,6 +28,7 @@ export class ProfileFormComponent {
   public profileForm: FormGroup
   public currentStep = 1
   public loading: boolean = false
+  private unsavedChanges: boolean = false
 
   constructor(
     private fb: FormBuilder,
@@ -74,6 +75,14 @@ export class ProfileFormComponent {
     if (this.currentStep > 1) {
       this.currentStep--
     }
+  }
+
+  saveChanges() {
+    this.unsavedChanges = false
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.unsavedChanges
   }
 
   onSubmit() {
