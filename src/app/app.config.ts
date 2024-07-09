@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
@@ -9,7 +9,7 @@ import { NgToastModule } from 'ng-angular-popup';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes), 
+    provideRouter(routes, withPreloading(PreloadAllModules)), 
     provideAnimationsAsync(), 
     provideHttpClient(), 
     provideSpinnerConfig({ type: 'ball-clip-rotate-multiple'}),
