@@ -40,6 +40,12 @@ export class AuthService {
       map((response: LoginResponse) => {
         localStorage.setItem('currentUser', JSON.stringify(response))
         this.currentUserSubject.next(response)
+        
+        if (response.data.user.role === Role.ADMIN) {
+          this.router.navigate(['/admin-page'])
+        } else if (response.data.user.role === Role.PERSONNEL) {
+          this.router.navigate(['/personnel-profile'])
+        }
         return response
       })
     )
