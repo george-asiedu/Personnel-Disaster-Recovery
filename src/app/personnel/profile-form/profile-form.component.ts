@@ -7,7 +7,7 @@ import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { Profile } from '../../model/profile';
 import { UserDataService } from '../../shared/user-data/user-data.service';
 import { phoneNumberValidator } from '../../validators/phoneNumberValidator';
-import { PhoneNumberDirective } from '../../directive/phone-number/phone-number.directive';
+import { PhoneNumberDirective } from '../../directives/phone-number/phone-number.directive';
 
 @Component({
   selector: 'app-profile-form',
