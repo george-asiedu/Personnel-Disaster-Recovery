@@ -89,7 +89,7 @@ export const routes: Routes = [
     {
         path: '**',
         title: 'Personnel Disaster Recovery | Page Not Found Page',
-        loadComponent: () => import('../app/wildcard-routes/page-not-found/page-not-found.component')
+        loadComponent: () => import('../app/page-not-found/page-not-found.component')
             .then(c => c.PageNotFoundComponent)
     }
 ]
