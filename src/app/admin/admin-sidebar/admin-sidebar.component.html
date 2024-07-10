@@ -1,50 +1,59 @@
-<div class="relative flex flex-col gap-[5px] w-full lg:py-[2rem] 2xl:py-[3rem]">
+<div [class.collapsed]="isSidebarCollapsed" class="sidebar w-[280px] relative h-full bg-white py-[2rem] 3xl:py-[3rem] px-[20px] flex flex-col gap-[5px]">
     <div 
-        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
         routerLink="/admin-page"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
     >
         <img src="../../../assets/dashboard.svg" alt="dashboard-icon">
-        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Dashboard</h5>
+        <h5 class="text-heading tracking-wide">Dashboard</h5>
     </div>
     <div 
-        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
+        routerLink="/admin-page/profession"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <img src="../../../assets/users.svg" alt="users-icon">
+        <h5 class="text-heading tracking-wide">Profession</h5>
+    </div>
+    <div 
+        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
         routerLink="/admin-page/personnels"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
     >
         <img src="../../../assets/users.svg" alt="users-icon">
-        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Personnels</h5>
+        <h5 class="text-heading tracking-wide">Personnels</h5>
     </div>
     <div 
-        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
         routerLink="ranking"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
     >
         <img src="../../../assets/ranking.svg" alt="ranking-icon">
-        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Personnels Rankings</h5>
+        <h5 class="text-heading tracking-wide">Personnels Rankings</h5>
     </div>
     <div 
-        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
         routerLink="ranking"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
     >
         <img src="../../../assets/ranking.svg" alt="ranking-icon">
-        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Emergency initiative</h5>
+        <h5 class="text-heading tracking-wide">Emergency initiative</h5>
     </div>
     <div 
-        class="flex items-center gap-[10px] px-[10%] cursor-pointer p-[10px] hover:bg-secondary" 
+        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
         routerLink="report"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
     >
         <img src="../../../assets/report.svg" alt="report-icon">
-        <h5 class="text-heading tracking-wide hover:text-tertiary hover:font-medium">Reports</h5>
+        <h5 class="text-heading tracking-wide">Reports</h5>
     </div>
-    <span class="cursor-pointer bg-white absolute top-4 -right-5 shadow-md w-[40px] h-[40px] rounded-full flex items-center justify-center">
+    <span (click)="toggleSidebar()" class="cursor-pointer bg-white absolute top-4 -right-5 shadow-md w-[40px] h-[40px] rounded-full flex items-center justify-center">
         <img src="../../../assets/arrow-left-black.svg" alt="arrow-left">
     </span>
 </div>
