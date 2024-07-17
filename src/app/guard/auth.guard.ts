@@ -11,7 +11,7 @@ const getDependencies = () => {
     authService: inject(AuthService),
     router: inject(Router),
     toast: inject(NgToastService)
-  }
+  };
 }
 
 const handleUnauthorizedAccess = (router: Router, toast: NgToastService) => {
@@ -22,7 +22,7 @@ const handleUnauthorizedAccess = (router: Router, toast: NgToastService) => {
 }
 
 export const canActivate: CanActivateFn = (route) => {
-  const { authService, router, toast } = getDependencies()
+  const { authService, router, toast } = getDependencies();
   const requiredRoles = route.data?.['roles'] as Array<Role> | undefined
   const user = authService.currentUserValue?.data.user
 
@@ -32,7 +32,7 @@ export const canActivate: CanActivateFn = (route) => {
     handleUnauthorizedAccess(router, toast)
     return false
   }
-};
+}
 
 export const canMatch: CanMatchFn = (route) => {
   const { authService, router, toast } = getDependencies()
@@ -45,11 +45,11 @@ export const canMatch: CanMatchFn = (route) => {
     handleUnauthorizedAccess(router, toast)
     return false
   }
-};
+}
 
 export const canDeactivate: CanDeactivateFn<ProfileFormComponent> = ( component: ProfileFormComponent ) => {
   const { toast } = getDependencies()
-  if(component.hasUnsavedChanges()) {
+  if (component.hasUnsavedChanges()) {
     toast.warning("You have unsaved changes", "Warning", 3000)
     return false
   }
