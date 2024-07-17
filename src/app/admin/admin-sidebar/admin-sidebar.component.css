@@ -1,0 +1,26 @@
+.sidebar {
+  box-shadow: 0 0 1px gray;
+  transition: all 0.5s ease-in-out;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+  padding: 1rem 10px;
+}
+.sidebar.collapsed h5 {
+  display: none;
+}
+.sidebar.collapsed .cursor-pointer {
+  justify-content: center;
+}
+
+.active {
+  background-color: #D1FADF;
+  border-right: 5px solid #027A48;
+  border-radius: 8px;
+  transition: all 0.5s ease-in-out;
+}
+.active h5 {
+  color: #027A48;
+  font-weight: 500;
+}/*# sourceMappingURL=admin-sidebar.component.css.map */

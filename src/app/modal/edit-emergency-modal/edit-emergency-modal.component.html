@@ -1,0 +1,34 @@
+<div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
+    <div class="bg-white p-[24PX] w-[400px] rounded-xl shadow-xl">
+        <span class="flex items-center justify-between mb-4">
+            <h3 class="text-heading font-semibold text-lg">Edit emergency</h3>
+            <button (click)="onCancel()" class="text-black text-2xl">&times;</button>
+        </span>
+        <form class="flex flex-col gap-[10px]"> 
+            <div class="flex flex-col gap-[4px]">
+                <label for="emergencyType" class="text-paragraph font-medium tracking-wide text-sm">Emergency type</label>
+                <input 
+                    type="text"
+                    required
+                    id="emergencyType"
+                    placeholder="Enter emergency type"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-lg w-full"
+                >
+            </div>
+            <div class="w-full flex items-center gap-4">
+                <button 
+                    class="w-[48%] bg-white text-heading rounded-lg py-[8px] px-[14px] border border-border font-medium"
+                    (click)="onCancel()"
+                >
+                    Cancel
+                </button>
+                <button 
+                    class="w-[48%] bg-primary text-white rounded-lg py-[8px] px-[14px] font-medium"
+                    (click)="onSubmit()"
+                >
+                    Save changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

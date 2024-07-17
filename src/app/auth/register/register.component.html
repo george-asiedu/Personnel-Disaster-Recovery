@@ -11,7 +11,7 @@
     <div class="bg-black h-full">
         <img src="../../../assets/register.jpg" class="w-full hidden lg:block opacity-40" alt="register-image">
     </div>
-    <div class="bg-gray-50 w-[90%] md:w-[500px] lg:w-[400px] h-auto px-[2rem] py-[1.5rem] border-none rounded-lg absolute top-[13%] md:top-[20%] lg:top-[5%] 2xl:top-[14%] md:right-[18%] right-[5%] lg:right-[5%] 2xl:right-[10%]">
+    <div class="bg-gray-50 w-[90%] md:w-[500px] lg:w-[400px] h-auto px-[2rem] py-[1.5rem] border-none rounded-lg absolute top-[13%] md:top-[20%] lg:top-[8%] 3xl:top-[14%] md:right-[18%] right-[5%] lg:right-[10%] 3xl:right-[10%]">
         <div class="flex items-center flex-col mb-[10px]">
             <img src="../../../assets/loom.svg" alt="logo">
             <h2 class="text-heading tracking-wide text-lg font-bold">Create an account</h2>
@@ -26,7 +26,7 @@
                     required
                     placeholder="Enter your name"
                     formControlName="name"
-                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary text-heading rounded-lg w-full"
                 >
                 <div 
                     class="text-red-500 text-[12px] flex items-center justify-between"
@@ -44,7 +44,7 @@
                     required
                     formControlName="email"
                     placeholder="Enter your email address"
-                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary text-heading rounded-lg w-full"
                 >
                 <div 
                     class="text-red-500 text-[12px] flex items-center justify-between"
@@ -62,7 +62,7 @@
                     required
                     formControlName="password"
                     placeholder="Create a password"
-                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary text-heading rounded-lg w-full"
                 >
                 <div class="absolute top-[50%] right-0 cursor-pointer max-w-[40px]" (click)="toggleShowPassword()">
                     <img src="../../../assets/{{ showPassword ? 'eye-open.svg' : 'eye-close.svg'}}" class="w-[50%]" alt="eye-icon">
@@ -83,7 +83,7 @@
                     required
                     formControlName="confirmPassword"
                     placeholder="Confirm password"
-                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary text-heading rounded-lg w-full"
                 >
                 <div class="absolute top-[50%] right-0 cursor-pointer max-w-[40px]" (click)="toggleShowConfirmPassword()">
                     <img src="../../../assets/{{ showConfirmPassword ? 'eye-open.svg' : 'eye-close.svg'}}" class="w-[50%]" alt="eye-icon">
@@ -97,7 +97,7 @@
                 </div>
             </div>
             <button
-                class="bg-primary hover:bg-green-700 my-[10px] py-[8px] text-white text-center text-sm font-medium rounded-md"
+                class="bg-primary hover:bg-green-700 my-[10px] py-[10px] px-[18px] text-white text-center font-semibold rounded-lg"
                 type="submit" 
                 [disabled]="registerForm.invalid || loading"
             >

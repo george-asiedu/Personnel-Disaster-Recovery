@@ -1,3 +1,13 @@
+header {
+    transition: padding 0.3s ease-in-out, position 0.3s ease-in-out;
+}
+
+header.scrolled {
+    position: fixed;
+    top: 0;
+    width: 90%;
+}
+
 nav a {
     display: inline-block;
     padding: 0 10px;
@@ -22,30 +32,16 @@ nav a {
     }
 }
 
-.active {
-    position: relative;
-    color: #039855;
-    font-weight: 500;
-
-    &::before {
-        content: '';
-        width: 100%;
-        height: 3px;
-        background: #039855;
-        position: absolute;
-        left: 0;
-        bottom: -10px;
-        display: inline-block;
-        transition: 0.5s ease-in-out;
-    }
-}
-
 .span-img {
     background-image: url('../../assets/soldiers.png');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 40px 40px 0 40px;
+
+    span {
+        border-radius: 40px 40px 0px 40px;
+    }
 }
 
 .features {
@@ -75,7 +71,7 @@ nav a {
             &:last-child::before {
                 left: -0.6%;
 
-                @media screen and (min-width: 1600px) {
+                @media screen and (min-width: 1800px) {
                     left: -0.8%;
                 }
             }
@@ -135,10 +131,10 @@ nav a {
             &::after {
                 content: '';
                 position: absolute;
-                top: 100%;
+                top: -17%;
                 left: 50%;
-                transform: translateX(-50%);
-                border-width: 5px;
+                transform: rotate(180deg);
+                border-width: 6px;
                 border-style: solid;
                 border-color: #039855 transparent transparent transparent;
             }

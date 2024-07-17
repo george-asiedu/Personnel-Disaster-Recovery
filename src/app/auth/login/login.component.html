@@ -11,7 +11,7 @@
     <div class="bg-black h-full">
         <img src="../../../assets/2.jpg" class="w-full object-cover hidden lg:block h-full opacity-40" alt="register-image">
     </div>
-    <div class="bg-gray-50 w-[90%] md:w-[500px] lg:w-[400px] h-auto px-[2rem] py-[2.5rem] border-none rounded-lg absolute top-[16%] md:top-[24%] lg:top-[10%] 2xl:top-[20%] right-[5%] md:right-[18%] lg:right-[5%]">
+    <div class="bg-gray-50 w-[90%] md:w-[500px] lg:w-[400px] h-auto px-[2rem] py-[2.5rem] border-none rounded-lg absolute top-[16%] md:top-[24%] lg:top-[10%] 3xl:top-[20%] right-[5%] md:right-[18%] lg:right-[8%]">
         <div class="flex items-center flex-col mb-[10px]">
             <img src="../../../assets/loom.svg" alt="logo">
             <h2 class="text-heading tracking-wide text-lg font-bold">Log into your account</h2>
@@ -25,7 +25,7 @@
                     formControlName="email"
                     required
                     placeholder="Enter your email address"
-                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary text-heading rounded-lg w-full"
                 >
                 <div 
                     class="text-red-500 text-[12px] flex items-center justify-between"
@@ -42,7 +42,7 @@
                     formControlName="password"
                     required
                     placeholder="Create a password"
-                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-md w-full"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary text-heading rounded-lg w-full"
                 >
                 <div class="absolute top-[50%] right-0 cursor-pointer max-w-[40px]" (click)="toggleShowPassword()">
                     <img src="../../../assets/{{ showPassword ? 'eye-open.svg' : 'eye-close.svg'}}" class="w-[50%]" alt="eye-icon">
@@ -67,7 +67,7 @@
                 <p class="text-primary font-medium cursor-pointer" routerLink="/forgot-password">Forgot password</p>
             </div>
             <button
-                class="bg-primary hover:bg-green-700 my-[10px] py-[8px] text-white text-center text-sm font-medium rounded-md"
+                class="bg-primary hover:bg-green-700 my-[10px] py-[10px] px-[18px] text-white text-center font-semibold rounded-lg"
                 type="submit" 
                 [disabled]="loginForm.invalid || loading"
             >

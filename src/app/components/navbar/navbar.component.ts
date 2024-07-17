@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from '../../shared/user-data/user-data.service';
-import { LoginResponse } from '../../model/login';
+import { AuthService } from '../../auth/authService/auth.service';
 import { NgIf } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -18,18 +16,16 @@ export class NavbarComponent implements OnInit {
   public username: string = ''
   public email: string = ''
 
-  constructor(private userService: UserDataService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-      this.userService.user$.subscribe(
-        (user: LoginResponse['data']['user'] | null) => {      
-          if(user) {
-            this.userInitials = this.getInitials(user.name)
-            this.username = user.name
-            this.email = user.email
-          }
-        }
-      )
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser) {
+      const user = currentUser.data.user
+      this.userInitials = this.getInitials(user.name)
+      this.username = user.name
+      this.email = user.email
+    }
   }
 
   getInitials(name: string): string {
@@ -47,8 +43,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.userService.clearUserData()
+    this.authService.logout();
     this.isDropdownOpen = false
-    this.router.navigate(['/login'])
   }
 }

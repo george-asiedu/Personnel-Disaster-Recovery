@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { TableComponent } from '../../components/table/table.component';
+import { PersonnelTableComponent } from '../../components/table/personnel-table/personnel-table.component';
 
 @Component({
   selector: 'app-personnels',
   standalone: true,
-  imports: [TableComponent],
+  imports: [PersonnelTableComponent],
   templateUrl: './personnels.component.html',
   styleUrl: './personnels.component.scss'
 })

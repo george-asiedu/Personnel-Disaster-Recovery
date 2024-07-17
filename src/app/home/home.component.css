@@ -1,0 +1,132 @@
+header {
+  transition: padding 0.3s ease-in-out, position 0.3s ease-in-out;
+}
+
+header.scrolled {
+  position: fixed;
+  top: 0;
+  width: 90%;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0 10px;
+  margin: 0 10px;
+  cursor: pointer;
+  position: relative;
+}
+nav a::after {
+  content: "";
+  width: 0;
+  height: 3px;
+  background: #039855;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  display: inline-block;
+  transition: 0.5s ease-in-out;
+}
+nav a:hover::after {
+  width: 100%;
+}
+
+.span-img {
+  background-image: url("../../assets/soldiers.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 40px 40px 0 40px;
+}
+.span-img span {
+  border-radius: 40px 40px 0px 40px;
+}
+
+.features {
+  background-image: url("../../assets/rectangle.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.features .span {
+  position: relative;
+}
+.features .span span {
+  position: relative;
+}
+.features .span span::before {
+  content: "";
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  left: -1%;
+  top: 0%;
+  z-index: 10;
+}
+.features .span span:last-child::before {
+  left: -0.6%;
+}
+@media screen and (min-width: 1800px) {
+  .features .span span:last-child::before {
+    left: -0.8%;
+  }
+}
+
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.container .img-container {
+  position: absolute;
+}
+.container .testimonial img {
+  width: 80px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  animation: verticalMotion 3s infinite alternate ease-in-out;
+}
+@keyframes verticalMotion {
+  0% {
+    transform: translateY(0);
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+.container .testimonial .tooltip {
+  visibility: hidden;
+  width: 200px;
+  background-color: white;
+  color: #1D2939;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  top: 90%;
+  left: 15%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.container .testimonial .tooltip::after {
+  content: "";
+  position: absolute;
+  top: -17%;
+  left: 50%;
+  transform: rotate(180deg);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #039855 transparent transparent transparent;
+}
+.container .testimonial:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}/*# sourceMappingURL=home.component.css.map */

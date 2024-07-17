@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, HostListener } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,5 +10,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  
+  @HostListener('window:scroll', ['$event'])
+  onScroll(): void {
+    const header = document.querySelector('header')
+    if (window.scrollY > 0) {
+      header?.classList.add('scrolled')
+    } else {
+      header?.classList.remove('scrolled')
+    }
+  }
 }

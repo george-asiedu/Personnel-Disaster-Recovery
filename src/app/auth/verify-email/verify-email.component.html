@@ -8,6 +8,12 @@
     </p>
     <span class="flex items-center text-xs tracking-wide text-paragraph gap-[4px]">
         <p>Did not receive the link?</p>
-        <a routerLink="/resend" class="text-primary font-medium hover:font-bold">Resend link</a>
+        <a 
+            routerLink="/resend" 
+            (click)="resendEmailConfirmation()"
+            class="text-primary font-medium hover:font-bold"
+        >
+            Resend link
+        </a>
     </span>
 </div>
