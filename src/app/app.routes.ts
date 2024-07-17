@@ -4,6 +4,8 @@ import { PersonnelsComponent } from './admin/personnels/personnels.component';
 import { PersonnelDetailsComponent } from './admin/personnel-details/personnel-details.component';
 import { canActivate, canDeactivate, canMatch } from './guard/auth.guard';
 import { Role } from './model/login';
+import { EmergencyComponent } from './admin/emergency/emergency.component';
+import { EmergencyInitiativeComponent } from './admin/emergency-initiative/emergency-initiative.component';
 
 
 export const routes: Routes = [
@@ -60,7 +62,9 @@ export const routes: Routes = [
         children: [
             { path: '',  component: AdminDashboardHomeComponent },
             { path: 'personnels',  component: PersonnelsComponent },
-            { path: 'personnel-details',  component: PersonnelDetailsComponent }
+            { path: 'personnel-details',  component: PersonnelDetailsComponent },
+            { path: 'emergency',  component: EmergencyComponent },
+            { path: 'emergency-initiative',  component: EmergencyInitiativeComponent }
         ]
     },
     {
