@@ -6,6 +6,7 @@ import { canActivate, canDeactivate, canMatch } from './guard/auth.guard';
 import { Role } from './model/login';
 import { EmergencyComponent } from './admin/emergency/emergency.component';
 import { EmergencyInitiativeComponent } from './admin/emergency-initiative/emergency-initiative.component';
+import { AccountSettingsComponent } from '../app/account-settings/account-settings.component';
 
 
 export const routes: Routes = [
@@ -64,7 +65,8 @@ export const routes: Routes = [
             { path: 'personnels',  component: PersonnelsComponent },
             { path: 'personnel-details',  component: PersonnelDetailsComponent },
             { path: 'emergency',  component: EmergencyComponent },
-            { path: 'emergency-initiative',  component: EmergencyInitiativeComponent }
+            { path: 'emergency-initiative',  component: EmergencyInitiativeComponent },
+            { path: 'account-settings/:name',  component: AccountSettingsComponent }
         ]
     },
     {
@@ -76,12 +78,6 @@ export const routes: Routes = [
         canMatch: [canMatch],
         // canDeactivate: [canDeactivate],
         data: { roles: [Role.PERSONNEL] }
-    },
-    {
-        path: 'account-settings',
-        title: 'Personnel Disaster Recovery | Account Settings Page',
-        loadComponent: () => import('../app/account-settings/account-settings.component')
-        .then(c => c.AccountSettingsComponent)
     },
     {
         path: '',
