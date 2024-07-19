@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 import { CreateProfessionModalComponent } from '../../modal/create-profession-modal/create-profession-modal.component';
 import { NgToastService } from 'ng-angular-popup';
 import { EmergencyTableComponent } from '../../components/table/emergency-table/emergency-table.component';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
 
 @Component({
   selector: 'app-emergency',
@@ -12,7 +13,8 @@ import { EmergencyTableComponent } from '../../components/table/emergency-table/
     CreateEmergencyModalComponent, 
     NgIf,
     CreateProfessionModalComponent,
-    EmergencyTableComponent
+    EmergencyTableComponent,
+    PaginationComponent
   ],
   templateUrl:      './emergency.component.html',
   styleUrl: './emergency.component.scss'
@@ -40,7 +42,7 @@ export class EmergencyComponent {
   }
 
   confirmData() {
-    this.isModalVisible = false;
+    this.isModalVisible = false
     this.toast.success("Personnel suspended successfully", "Success", 3000)
   }
 
