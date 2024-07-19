@@ -1,0 +1,8 @@
+input.ng-valid {
+    border: 1px solid #039855;
+}
+
+button[disabled] {
+    background-color: #D1FADF;
+    cursor: not-allowed;
+}
