@@ -33,6 +33,7 @@
             <img src="../../../assets/arrow-left-black.svg" alt="arrow-left-icon">
             <p class="text-heading tracking-wide text-sm">Previous</p>
         </button>
+        <app-pagination/>
         <button 
             class="flex items-center gap-[10px] rounded-lg px-[14px] flex-row-reverse py-[8px] hover:bg-gray50 bg-white border border-border"
         >
@@ -40,4 +41,10 @@
             <p class="text-heading tracking-wide text-sm">Next</p>
         </button>
     </div>
+
+    <app-create-initiative-modal
+        *ngIf="isModalVisible"
+        (cancel)="cancelModal()"
+        (submit)="onSubmit()"
+    />
 </div>
