@@ -47,7 +47,6 @@ export class CreateProfessionModalComponent implements OnInit{
   getEmergency(want: string): void {
     this.es.getEmergencies(undefined, want).subscribe({
       next: (response) => {
-        console.log('get emergency response:', response)
         this.emergency = response.data.emergencyTypes
       },
       error: () => {

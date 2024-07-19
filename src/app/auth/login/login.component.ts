@@ -6,7 +6,6 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../authService/auth.service';
 import { NgToastService } from 'ng-angular-popup';
 import { Login, LoginResponse } from '../../model/login';
-import { UserDataService } from '../../shared/user-data/user-data.service';
 
 @Component({
   selector: 'app-login',

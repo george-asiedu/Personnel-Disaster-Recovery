@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { Profile } from '../../model/profile';
-import { UserDataService } from '../../shared/user-data/user-data.service';
 import { phoneNumberValidator } from '../../validators/phoneNumberValidator';
 import { PhoneNumberDirective } from '../../directives/phone-number/phone-number.directive';
+import { AuthService } from '../../auth/authService/auth.service';
 
 @Component({
   selector: 'app-profile-form',
@@ -34,10 +34,10 @@ export class ProfileFormComponent {
     private fb: FormBuilder,
     private toast: NgToastService,
     private router: Router,
-    private userService: UserDataService) {
+    private as: AuthService) {
       this.profileForm = this.fb.group({
       
-        name: [{ value: this.userService.getUser()?.name, disabled: true }],
+        name: [{ value: this.as.currentUserValue?.data.user.name, disabled: true }],
         dob: ['', Validators.required],
         gender: ['', Validators.required],
         phoneNumber: ['', [Validators.required, phoneNumberValidator()]],
@@ -89,11 +89,5 @@ export class ProfileFormComponent {
     if (this.profileForm.invalid) {
       return
     }
-
-    // this.loading = true
-
-    // const profileData: Profile = this.profileForm.value
-
-    
   }
 }

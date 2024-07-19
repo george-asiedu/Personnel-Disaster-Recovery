@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/authService/auth.service';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -16,10 +17,10 @@ export class NavbarComponent implements OnInit {
   public username: string = ''
   public email: string = ''
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    const currentUser = this.authService.currentUserValue;
+    const currentUser = this.authService.currentUserValue
     if (currentUser) {
       const user = currentUser.data.user
       this.userInitials = this.getInitials(user.name)
@@ -40,10 +41,11 @@ export class NavbarComponent implements OnInit {
 
   accountSettings(): void {
     this.isDropdownOpen = false
+    this.router.navigate(['/admin-page/account-settings', this.username])
   }
 
   logout(): void {
-    this.authService.logout();
+    this.authService.logout()
     this.isDropdownOpen = false
   }
 }
