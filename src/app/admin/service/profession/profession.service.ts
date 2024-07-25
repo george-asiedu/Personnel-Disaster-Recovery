@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { CreateProfession, GetProfession, Professions } from '../../../model/professions';
-import { NgToastService } from 'ng-angular-popup';
-import { AuthService } from '../../../auth/authService/auth.service';
+import { Observable } from 'rxjs';
+import { GetProfession, ProfessionsResponse } from '../../../model/professions';
 
 @Injectable({
   providedIn: 'root'
@@ -12,35 +10,21 @@ import { AuthService } from '../../../auth/authService/auth.service';
 export class ProfessionService {
   protected baseUrl: string = environment.baseUrl;
   
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private toast: NgToastService
-  ) {}
+  constructor(private http: HttpClient) {}
 
-  private get httpOptions() {
-    const accessToken = this.authService.currentUserValue?.data.token.accessToken;
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`
-      })
-    }
+  addProfession(name: string): Observable<ProfessionsResponse> {
+    return this.http.post<ProfessionsResponse>(`${this.baseUrl}/professions`, name)
   }
 
-  addProfession(type: CreateProfession): Observable<Professions> {
-    return this.http.post<Professions>(`${this.baseUrl}/professions`, type, this.httpOptions)
+  getProfession(page: number, want?: string): Observable<GetProfession> {
+    return this.http.get<GetProfession>(`${this.baseUrl}/professions?page=${page}&want=${want}`)
   }
 
-  getProfession(page: number): Observable<GetProfession> {
-    return this.http.get<GetProfession>(`${this.baseUrl}/professions?page=${page}`, this.httpOptions)
-  }
-
-  editEmergency(id: number, type: CreateProfession): Observable<Professions> {
-    return this.http.put<Professions>(`${this.baseUrl}/professions/${id}`, type, this.httpOptions)
+  editEmergency(id: number): Observable<ProfessionsResponse> {
+    return this.http.put<ProfessionsResponse>(`${this.baseUrl}/professions/${id}`, id)
   }
 
   deleteEmergency(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/professions/${id}`, this.httpOptions)
+    return this.http.delete<any>(`${this.baseUrl}/professions/${id}`)
   }
 }
