@@ -15,26 +15,28 @@ const getDependencies = () => {
 }
 
 const handleUnauthorizedAccess = (router: Router, toast: NgToastService) => {
-  toast.warning("You don't have permission", "Access denied", 3000)
-  setTimeout(() => {
-    router.navigate(['/login'])
-  }, 3000)
+  toast.warning("Unauthorized route access, please login", "Access denied", 3000)
+  router.navigateByUrl('/login')
 }
 
 export const canActivate: CanActivateFn = (route) => {
-  const { authService, router, toast } = getDependencies();
-  const requiredRoles = route.data?.['roles'] as Array<Role> | undefined
-  const user = authService.currentUserValue?.data.user
-
-  if (user && requiredRoles && requiredRoles.includes(user.role)) {
-    return true
-  } else {
-    handleUnauthorizedAccess(router, toast)
-    return false
-  }
+  return checkAuth(route)
 }
 
 export const canMatch: CanMatchFn = (route) => {
+  return checkAuth(route)
+}
+
+export const canDeactivate: CanDeactivateFn<ProfileFormComponent> = ( component: ProfileFormComponent ) => {
+  const { toast } = getDependencies()
+  if (component.hasUnsavedChanges()) {
+    toast.warning("You have unsaved changes", "Warning", 3000)
+    return false
+  }
+  return true
+}
+
+export const checkAuth = (route: any) => {
   const { authService, router, toast } = getDependencies()
   const requiredRoles = route.data?.['roles'] as Array<Role> | undefined
   const user = authService.currentUserValue?.data.user
@@ -45,13 +47,4 @@ export const canMatch: CanMatchFn = (route) => {
     handleUnauthorizedAccess(router, toast)
     return false
   }
-}
-
-export const canDeactivate: CanDeactivateFn<ProfileFormComponent> = ( component: ProfileFormComponent ) => {
-  const { toast } = getDependencies()
-  if (component.hasUnsavedChanges()) {
-    toast.warning("You have unsaved changes", "Warning", 3000)
-    return false
-  }
-  return true
 }
