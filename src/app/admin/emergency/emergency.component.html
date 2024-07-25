@@ -3,7 +3,7 @@
         <div class="flex items-center gap-[8px]">
             <h3 class="text-heading tracking-wide font-medium text-lg">Emergency</h3>
             <span class="bg-secondary animate-pulse w-[30px] h-[30px] flex items-center justify-center cursor-pointer rounded-full">
-                <h6 class="text-xs font-medium text-center">9</h6>
+                <h6 class="text-xs font-bold text-center text-tertiary">{{count}}</h6>
             </span>
         </div>
         <div class="flex items-center gap-[1rem]">
@@ -17,12 +17,6 @@
             </div>
             <button 
                 type="button" 
-                (click)="showProfessionModal()"
-                class="bg-white hover:bg-gray50 text-heading text-sm font-semibold text-center px-[14px] py-[8px] rounded-lg border border-border shadow-sm shadow-border">
-                Create profession
-            </button>
-            <button 
-                type="button" 
                 (click)="showModal()"
                 class="bg-primary hover:bg-tertiary text-white text-sm font-semibold text-center px-[14px] py-[8px] rounded-lg border border-primary">
                 Create emergency
@@ -30,32 +24,11 @@
         </div>
     </header>
 
-    <app-emergency-table/>
-    
-    <div class="flex items-center justify-between w-full mt-[2rem]">
-        <button 
-            class="flex items-center gap-[10px] rounded-lg px-[14px] py-[8px] hover:bg-gray50 bg-white border border-border"
-        >
-            <img src="../../../assets/arrow-left-black.svg" alt="arrow-left-icon">
-            <p class="text-heading tracking-wide text-sm">Previous</p>
-        </button>
-        <app-pagination/>
-        <button 
-            class="flex items-center gap-[10px] rounded-lg px-[14px] flex-row-reverse py-[8px] hover:bg-gray50 bg-white border border-border"
-        >
-            <img src="../../../assets/arrow-right.svg" alt="arrow-right-icon">
-            <p class="text-heading tracking-wide text-sm">Next</p>
-        </button>
-    </div>
+    <app-emergency-table></app-emergency-table>
 
     <app-create-emergency-modal 
         *ngIf="isModalVisible"
         (cancel)="cancelModal()"
         (confirm)="confirmData()"
-    />
-    <app-create-profession-modal
-        *ngIf="isProfessionModalOpen"
-        (cancel)="closeProfessionModal()"
-        (confirm)="onSubmit()"
-    />
+    ></app-create-emergency-modal>
 </div>
