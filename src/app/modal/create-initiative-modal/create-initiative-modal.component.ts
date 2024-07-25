@@ -43,7 +43,7 @@ export class CreateInitiativeModalComponent implements OnInit {
   }
 
   fetchEmergency(want: string): void {
-    this.es.getEmergencies(undefined, want).subscribe({
+    this.es.getEmergencies(0, 'all').subscribe({
       next: (response) => {
         this.emergency = response.data.emergencyTypes
       },
