@@ -1,0 +1,84 @@
+<div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
+    <div class="bg-white p-[24PX] w-[400px] rounded-xl shadow-xl">
+        <span class="flex items-center justify-between mb-4">
+            <h3 class="text-heading font-semibold text-lg">Add manager</h3>
+            <button (click)="onCancel()" class="text-black text-2xl">&times;</button>
+        </span>
+        <form class="flex flex-col gap-[10px]" [formGroup]="managerForm" (ngSubmit)="onSubmit()"> 
+            <div class="flex flex-col gap-[4px]">
+                <label for="name" class="text-heading font-medium tracking-wide text-sm">Manager name</label>
+                <input 
+                    type="text"
+                    required
+                    id="name"
+                    formControlName="name"
+                    placeholder="Enter manager name"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-lg w-full"
+                >
+                <div 
+                    class="text-red-500 text-[12px] flex items-center justify-between"
+                    *ngIf="managerForm.get('name')?.invalid && (managerForm.get('name')?.touched || managerForm.get('name')?.dirty)"
+                >
+                    <div *ngIf="managerForm.get('name')?.errors?.['required']">manager name is required</div>
+                    <div *ngIf="managerForm.get('name')?.invalid && managerForm.get('name')?.touched">must only contain alphabets</div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-[4px]">
+                <label for="email" class="text-heading font-medium tracking-wide text-sm">Email</label>
+                <input 
+                    type="email"
+                    required
+                    id="email"
+                    formControlName="email"
+                    placeholder="Enter manager email"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-lg w-full"
+                >
+                <div 
+                    class="text-red-500 text-[12px] flex items-center justify-between"
+                    *ngIf="managerForm.get('email')?.invalid && (managerForm.get('email')?.touched || managerForm.get('email')?.dirty)"
+                >
+                    <div *ngIf="managerForm.get('email')?.errors?.['required']">Manager email is required</div>
+                    <div *ngIf="managerForm.get('email')?.invalid && managerForm.get('email')?.touched">Invalid email</div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-[4px]">
+                <label for="phoneNumber" class="text-heading font-medium tracking-wide text-sm">Phone number</label>
+                <input 
+                    type="number"
+                    required
+                    id="phoneNumber"
+                    formControlName="phoneNumber"
+                    placeholder="Enter phone number"
+                    class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-lg w-full"
+                >
+                <div 
+                    class="text-red-500 text-[12px] flex items-center justify-between"
+                    *ngIf="managerForm.get('phoneNumber')?.invalid && (managerForm.get('phoneNumber')?.touched || managerForm.get('phoneNumber')?.dirty)"
+                >
+                    <div *ngIf="managerForm.get('phoneNumber')?.errors?.['required']">phone number is required</div>
+                    <div *ngIf="managerForm.get('phoneNumber')?.invalid && managerForm.get('phoneNumber')?.touched">invalid phone number</div>
+                </div>
+            </div>
+            
+            <div class="w-full flex items-center gap-4">
+                <button 
+                    class="w-[48%] bg-white text-heading rounded-lg py-[8px] px-[14px] border border-border font-medium"
+                    (click)="onCancel()"
+                >
+                    Cancel
+                </button>
+                <button 
+                    class="w-[48%] bg-primary hover:bg-tertiarycursor-pointer rounded-lg py-[8px] px-[14px]"
+                    type="submit"
+                    [disabled]="managerForm.invalid"
+                >
+                    <p *ngIf="!loading" class="tracking-wide font-medium text-white">Save</p>
+                    <span *ngIf="loading" class="flex items-center gap-[10px]">
+                        <app-spinner/> 
+                        <p class="text-white font-medium tracking-wide">Saving...</p>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
