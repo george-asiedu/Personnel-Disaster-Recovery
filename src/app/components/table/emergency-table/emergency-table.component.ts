@@ -1,41 +1,65 @@
-import { NgFor, NgClass, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { EditEmergencyModalComponent } from '../../../modal/edit-emergency-modal/edit-emergency-modal.component';
+import { EmergencyService } from '../../../admin/service/emergency/emergency.service';
+import { EmergencyType } from '../../../model/emergency-types';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { NgFor, NgClass, NgIf, DatePipe } from '@angular/common';
+import { SpinnerComponent } from '../../spinner/spinner.component';
 
 @Component({
   selector: 'app-emergency-table',
   standalone: true,
   imports: [
-    NgFor, 
-    NgClass, 
-    NgIf, 
-    EditEmergencyModalComponent
+    NgFor,
+    NgClass,
+    NgIf,
+    EditEmergencyModalComponent,
+    PaginationComponent,
+    DatePipe,
+    SpinnerComponent
   ],
   templateUrl: './emergency-table.component.html',
-  styleUrl: './emergency-table.component.scss'
+  styleUrls: ['./emergency-table.component.scss'],
 })
-export class EmergencyTableComponent {
+export class EmergencyTableComponent implements OnInit {
   public isEditModalOpen: boolean = false
-  public emergencies = [
-    { emergencyType: 'Security threat', date: 'May 9, 2024', profession: 'Police', status: 'active' },
-    { emergencyType: 'Pandemic', date: 'May 9, 2024', profession: ['Doctor', 'Nurse', 'Scientist', 'Receptionist'], status: 'completed' },
-    { emergencyType: 'Epidemic outbreaks', date: 'May 9, 2024', profession: 'Nurse', status: 'completed' },
-    { emergencyType: 'Civil unrest', date: 'May 9, 2024', profession: 'Lawyer', status: 'active' },
-    { emergencyType: 'Wildfire', date: 'May 9, 2024', profession: 'Firefighter', status: 'active' },
-    { emergencyType: 'Health emergency', date: 'May 9, 2024', profession: 'Doctor', status: 'completed' },
-    { emergencyType: 'Flood', date: 'May 9, 2024', profession: 'Lifeguard', status: 'active' },
-    { emergencyType: 'Industrial accident', date: 'May 9, 2024', profession: ['Engineers', 'Lawyer', 'IT Professional', 'Police', 'Scientist'], status: 'active' },
-    { emergencyType: 'Infrastructural failure', date: 'May 9, 2024', profession: 'IT Professional', status: 'completed' }
-  ]
+  public loading: boolean = false
+  public emergencies: EmergencyType[] = []
+  public isDropdownVisible: boolean[] = []
+  public totalEmergencies: number = 0
+  public currentPage: number = 0 
+  public pageSize: number = 9
 
-  public isDropdownVisible: boolean[] = Array(this.emergencies.length).fill(false)
-  public isProfessionsDropdownVisible: boolean[] = Array(this.emergencies.length).fill(false)
+  constructor(
+    private toast: NgToastService,
+    private es: EmergencyService
+  ) {}
 
-  constructor(private toast: NgToastService) {}
+  ngOnInit(): void {
+    this.fetchEmergencies(this.currentPage)
+  }
+
+  fetchEmergencies(page: number): void {
+    this.loading = true
+    this.es.getEmergencies(page).subscribe({
+      next: (response) => {
+        this.loading = false
+        this.emergencies = response.data.emergencyTypes
+        this.totalEmergencies = response.data.count
+        this.isDropdownVisible = Array(this.emergencies.length).fill(false)
+      },
+      error: () => {
+        this.loading = false
+        this.toast.danger('Failed to fetch emergencies', "Error", 3000 )
+      }
+    })
+  }
 
   toggleDropdown(index: number) {
-    this.isDropdownVisible = this.isDropdownVisible.map((visible, i) => (i === index ? !visible : false))
+    this.isDropdownVisible = this.isDropdownVisible.map((visible, i) =>
+      i === index ? !visible : false
+    )
   }
 
   OpenEditEmergency() {
@@ -45,27 +69,18 @@ export class EmergencyTableComponent {
   closeEditEmergencyModal() {
     this.isEditModalOpen = false
   }
-  
+
   onEditEmergencySubmit() {
     this.isEditModalOpen = false
-    this.toast.success("Emergency edited successfully", "Success", 3000)
+    this.toast.success('Emergency edited successfully', 'Success', 3000)
   }
 
   deleteEmergency(emergency: any) {
-    console.log('Deleting personnel...', emergency)
+    console.log('Deleting emergency...', emergency)
   }
 
-  asArray(profession: string | string[]): string[] {
-    return Array.isArray(profession) ? profession : [profession]
-  }
-
-  toggleProfessionsDropdown(index: number) {
-    this.isProfessionsDropdownVisible = this.isProfessionsDropdownVisible.map(
-      (visible, i) => (i === index ? !visible : false)
-    )
-  }
-
-  showMoreThanTwo(professions: string[]): boolean {
-    return professions.length > 2
+  handlePageChange(page: number): void {
+    this.currentPage = page
+    this.fetchEmergencies(this.currentPage + 1)
   }
 }

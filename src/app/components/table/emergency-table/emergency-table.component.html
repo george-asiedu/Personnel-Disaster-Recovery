@@ -1,63 +1,29 @@
 <div class="max-h-[410px] 3xl:max-h-[620px] overflow-y-auto">
-    <table class="w-full">
+    <div *ngIf="loading" class="mt-[3rem]">
+        <app-spinner/>
+    </div>
+    <table class="w-full" *ngIf="!loading">
         <thead class="bg-[#e8eef8] sticky top-0 z-[1]">
             <tr>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Emergency ID</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Emergency type</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Date created</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Profession</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Date</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Status</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="text-sm text-paragraph tracking-wide" *ngFor="let emergency of emergencies; let i = index">
+            <tr class="text-sm text-paragraph tracking-wide"  *ngFor="let emergency of emergencies; let i = index">
                 <td class="px-5">
-                    <p class="text-paragraph text-sm">{{ emergency.emergencyType }}</p>
+                    <p class="text-paragraph text-sm">{{ emergency.id }}</p>
                 </td>
-                <td class="px-5 text-paragraph text-sm">{{emergency.date}}</td>
-                <td class="px-5 text-paragraph text-sm">
-                    <ng-container>
-                        <span 
-                            class="bg-gray-100 py-[4px] px-[10px] rounded-full font-medium mr-[10px]" 
-                            *ngFor="let prof of asArray(emergency.profession).slice(0, 2)"
-                        >
-                            {{ prof }}
-                        </span>
-                        <span 
-                            *ngIf="showMoreThanTwo(asArray(emergency.profession))"
-                            class="bg-border text-heading text-xs py-[5px] px-[10px] rounded-full font-semibold cursor-pointer"
-                            (click)="toggleProfessionsDropdown(i)"
-                        >
-                            +{{ asArray(emergency.profession).length - 2 }}
-                        </span>
-                        <div *ngIf="isProfessionsDropdownVisible[i]" class="relative inline-block">
-                            <div class="absolute w-[222px] right-3 bg-white border border-border shadow-lg z-10 mt-5">
-                                <ng-container *ngFor="let prof of asArray(emergency.profession).slice(2)">
-                                    <div 
-                                        class="flex items-center justify-between w-full px-4 py-2 cursor-pointer"
-                                    >
-                                        <p class="text-paragraph tracking-wide">{{ prof }}</p>
-                                        <span class="flex items-center gap-[10px]">
-                                            <img src="../../../../assets/edit.svg" class="cursor-pointer" alt="edit">
-                                            <img src="../../../../assets/trash-2.svg" class="cursor-pointer" alt="trash">
-                                        </span>
-                                    </div>
-                                </ng-container>
-                                <span 
-                                    class="block py-2 px-4 text-blue-500 cursor-pointer hover:bg-[#EAECF0]"
-                                    (click)="toggleProfessionsDropdown(i)"
-                                >
-                                    Show Less
-                                </span>
-                            </div>
-                        </div>
-                    </ng-container>
-                </td>
+                <td class="px-5 text-paragraph text-sm">{{ emergency.name }}</td>
+                <td class="px-5 text-paragraph text-sm">{{ emergency.created_at | date }}</td>
                 <td class="px-5 text-paragraph text-sm">
                     <span 
                         [ngClass]="{
-                            'bg-suspendBg text-suspend': emergency.status === 'active',
-                            'bg-secondary text-primary': emergency.status === 'completed',
+                            'bg-pendingBg text-pending': emergency.status === 'ACTIVE',
+                            'bg-suspendBg text-suspend': emergency.status === 'REMOVED',
                         }"
                         class="px-[14px] py-[4px] text-xs rounded-full font-bold"
                     >
@@ -94,10 +60,18 @@
             </tr>                        
         </tbody>
     </table>
-
+    
     <app-edit-emergency-modal 
         *ngIf="isEditModalOpen"
         (cancel)="closeEditEmergencyModal()"
         (submit)="onEditEmergencySubmit()"
     />
 </div>
+
+<app-pagination
+  *ngIf="!loading"
+  [totalData]="totalEmergencies"
+  [pageSize]="pageSize"
+  [currentPage]="currentPage"
+  (paginationChange)="handlePageChange($event)"
+></app-pagination>
