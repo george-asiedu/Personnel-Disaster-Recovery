@@ -17,5 +17,6 @@ export interface GetEmergencyTypes {
 export interface EmergencyType {
     id: number,
     name: string,
-    status: string
+    status: string,
+    created_at: Date
 }
