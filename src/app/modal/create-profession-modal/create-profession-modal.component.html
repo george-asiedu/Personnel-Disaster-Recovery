@@ -1,7 +1,7 @@
 <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
     <div class="bg-white p-[24PX] w-[400px] rounded-xl shadow-xl">
         <span class="flex items-center justify-between mb-4">
-            <h3 class="text-heading font-semibold text-lg">Create profession</h3>
+            <h3 class="text-heading font-semibold text-lg">Add profession</h3>
             <button (click)="onCancel()" class="text-black text-2xl">&times;</button>
         </span>
         <form class="flex flex-col gap-[10px]" [formGroup]="addProfessionForm" (ngSubmit)="onSubmit()"> 
@@ -15,19 +15,6 @@
                     placeholder="Enter profession name"
                     class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-sm text-heading rounded-lg w-full"
                 >
-            </div>
-            <div class="flex flex-col gap-[4px]">
-                <label for="emergencyId" class="text-paragraph font-medium tracking-wide text-sm">Select emergency type</label>
-                <select 
-                        name="emergencyId" 
-                        id="emergencyId"
-                        formControlName="emergencyId"
-                        required
-                        class="border border-border py-[10px] px-[14px] focus-within:border-heading focus-within:outline-none caret-primary text-sm text-heading rounded-lg w-full"
-                    >
-                        <option value="">Select emergency type</option>
-                        <option *ngFor="let emergency of emergency" [value]="emergency.id">{{ emergency.name }}</option>
-                    </select>
             </div>
             <div class="w-full flex items-center gap-4">
                 <button 
