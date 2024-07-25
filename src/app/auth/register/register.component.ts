@@ -62,7 +62,6 @@ export class RegisterComponent {
         setTimeout(() => {
           this.spinner.hide()
         }, 2000)
-        // this.router.navigate(['/verify-email'])
       },
       error: () => {
         this.loading = false
