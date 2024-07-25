@@ -1,7 +1,4 @@
-export interface Image {
-    image: File
-}
-
 export interface ImageResponse {
-    message: string
+    message: string,
+    imagePath: string
 }
