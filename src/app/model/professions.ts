@@ -1,4 +1,4 @@
-export interface Professions {
+export interface ProfessionsResponse {
     message: string,
     data: {
         id: number,
@@ -8,21 +8,16 @@ export interface Professions {
     }
 }
 
-export interface CreateProfession {
-    name: string,
-    emergencyId: number
-}
-
 export interface GetProfession {
     data: {
         count: number,
-        professions: [
-            {
-                id: number,
-                name: string,
-                emergencyId: number,
-                status: string
-            }
-        ]
+        professions: Profession[]
     }
+}
+
+export interface Profession {
+    id: number,
+    name: string,
+    status: string,
+    created_at: Date
 }
