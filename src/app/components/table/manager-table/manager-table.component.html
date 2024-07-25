@@ -1,0 +1,71 @@
+<div class="max-h-[410px] 3xl:max-h-[620px] overflow-y-auto">
+    <div *ngIf="loading" class="mt-[3rem]">
+        <app-spinner/>
+    </div>
+    <table class="w-full" *ngIf="!loading">
+        <thead class="bg-[#e8eef8] sticky top-0 z-[1]">
+            <tr>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Emergency ID</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Emergency type</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Date</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Status</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-sm text-paragraph tracking-wide"  *ngFor="let emergency of emergencies; let i = index">
+                <td class="px-5">
+                    <p class="text-paragraph text-sm">{{ emergency.id }}</p>
+                </td>
+                <td class="px-5 text-paragraph text-sm">{{ emergency.name }}</td>
+                <td class="px-5 text-paragraph text-sm">{{ emergency.created_at | date }}</td>
+                <td class="px-5 text-paragraph text-sm">
+                    <span 
+                        [ngClass]="{
+                            'bg-pendingBg text-pending': emergency.status === 'ACTIVE',
+                            'bg-suspendBg text-suspend': emergency.status === 'REMOVED',
+                        }"
+                        class="px-[14px] py-[4px] text-xs rounded-full font-bold"
+                    >
+                        {{emergency.status}}
+                    </span>
+                </td>
+                <td class="py-4 px-5 text-paragraph relative">
+                    <img 
+                        src="../../../assets/action.svg" 
+                        class="cursor-pointer" 
+                        alt="action-icon"
+                        (click)="toggleDropdown(i)"
+                    />
+                    <div 
+                        *ngIf="isDropdownVisible[i]" 
+                        class="absolute right-6 2xl:right-20 mt-1 w-[222px] bg-white border border-border shadow-lg z-10"
+                    >
+                        <button 
+                            (click)="OpenEditEmergency()"
+                            class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
+                        >
+                            <img src="../../../../assets/edit.svg" alt="edit">
+                            <p class="text-heading text-left tracking-wide">Edit emergency</p>
+                        </button>
+                        <button 
+                            (click)="closeEditEmergencyModal()" 
+                            class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
+                        >
+                            <img src="../../../../assets/trash.svg" alt="trash">
+                            <p class="text-heading text-left tracking-wide">Delete emergency</p>
+                        </button>
+                    </div>
+                </td>
+            </tr>                        
+        </tbody>
+    </table>
+</div>
+
+<app-pagination
+  *ngIf="!loading"
+  [totalData]="totalEmergencies"
+  [pageSize]="pageSize"
+  [currentPage]="currentPage"
+  (paginationChange)="handlePageChange($event)"
+></app-pagination>
