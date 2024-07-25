@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from '../auth/authService/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { Image } from '../model/image';
 import { SharedService } from '../shared/shared.service';
 
 @Component({
@@ -107,10 +106,16 @@ export class AccountSettingsComponent implements OnInit {
     }
 
     this.loading = true
-    const image: Image = this.profileForm.value.image
-    console.log('image', image)
 
-    this.shared.changeImage(image).subscribe({
+    const formData = new FormData()
+    formData.append('name', this.profileForm.get('name')?.value)
+    formData.append('email', this.profileForm.get('email')?.value)
+    const image: File = this.profileForm.get('image')?.value
+    if (image) {
+      formData.append('image', image)
+    }
+
+    this.shared.changeImage(formData).subscribe({
       next: (response) => {
         console.log('image response', response)
         this.loading = false
