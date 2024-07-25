@@ -6,22 +6,29 @@
     <div class="flex items-center gap-[10px] md:gap-[20px]">
         <img src="../../../assets/bell.svg" class="cursor-pointer" alt="notification-icon">
         <div class="flex items-center gap-[10px]" (click)="toggleDropdown()">
-            <div *ngIf="userInitials" class="w-[40px] h-[40px] rounded-full cursor-pointer bg-pendingBg text-pending flex items-center justify-center font-bold border-2 border-pending">
+            <div *ngIf="!image" class="w-[40px] h-[40px] rounded-full cursor-pointer bg-pendingBg text-pending flex items-center justify-center font-bold border-2 border-pending">
                 {{userInitials}}
+            </div>
+            <div *ngIf="image" class="w-[40px] h-[40px] rounded-full cursor-pointer bg-pendingBg text-pending flex items-center justify-center font-bold border-2 border-pending">
+                <img [src]="image" class="w-full h-full object-cover rounded-full" alt="user-image">
             </div>
             <img src="../../../assets/chevron-down.svg" class="cursor-pointer" alt="chevron-down">
         </div>
         <div *ngIf="isDropdownOpen" class="absolute right-[4px] z-10 top-[11%] 3xl:top-[9%] bg-white shadow-md w-[300px] border-none rounded-lg flex flex-col">
             <div class="flex items-center gap-[10px] py-[8px] px-[1rem] cursor-pointer hover:bg-gray-50 border-b border-border">
-                <span *ngIf="userInitials" class="w-[50px] h-[50px] rounded-full bg-gray-300 text-heading flex items-center justify-center font-bold border-4 border-white shadow-md">
-                    {{userInitials}}
+                <span *ngIf="image" class="w-[50px] h-[50px] rounded-full bg-gray-300 text-heading flex items-center justify-center font-bold border-4 border-white shadow-md">
+                    <img [src]="image" class="w-full h-full object-cover rounded-full" alt="user-image">
                 </span>
                 <span>
                     <h4 class="text-heading tracking-wide font-medium">{{username}}</h4>
                     <p class="text-sm tracking-wide text-paragraph">{{email}}</p>
                 </span>
             </div>
-            <div (click)="accountSettings()" class="flex items-center gap-[10px] cursor-pointer hover:bg-gray-50 px-[1rem] py-[8px] border-b border-border">
+            <div 
+                (click)="accountSettings()"
+                routerLink="account-settings/{{username}}"
+                class="flex items-center gap-[10px] cursor-pointer hover:bg-gray-50 px-[1rem] py-[8px] border-b border-border"
+            >
                 <img src="../../../assets/setting.svg" alt="settings">
                 <h4 class="text-heading tracking-wide font-medium text-sm">Account settings</h4>
             </div>

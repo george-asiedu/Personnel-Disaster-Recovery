@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/authService/auth.service';
 import { NgIf } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -16,8 +16,9 @@ export class NavbarComponent implements OnInit {
   public userInitials: string = ''
   public username: string = ''
   public email: string = ''
+  public image: string | null = null
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     const currentUser = this.authService.currentUserValue
@@ -26,6 +27,7 @@ export class NavbarComponent implements OnInit {
       this.userInitials = this.getInitials(user.name)
       this.username = user.name
       this.email = user.email
+      this.image = user.image
     }
   }
 
@@ -41,7 +43,6 @@ export class NavbarComponent implements OnInit {
 
   accountSettings(): void {
     this.isDropdownOpen = false
-    this.router.navigate(['/admin-page/account-settings', this.username])
   }
 
   logout(): void {
