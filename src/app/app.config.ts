@@ -6,13 +6,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideSpinnerConfig } from "ngx-spinner";
 import { NgToastModule } from 'ng-angular-popup';
-import { authInterceptor } from './interceptor/auth.interceptor';
+import { tokenInterceptor } from './interceptor/token/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withPreloading(PreloadAllModules)), 
     provideAnimationsAsync(), 
-    provideHttpClient(withInterceptors([authInterceptor])), 
+    provideHttpClient(withInterceptors([tokenInterceptor])), 
     provideSpinnerConfig({ type: 'ball-clip-rotate-multiple'}),
     importProvidersFrom(NgToastModule)
   ]
