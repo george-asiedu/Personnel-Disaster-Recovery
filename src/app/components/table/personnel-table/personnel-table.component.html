@@ -1,43 +1,47 @@
 <div class="max-h-[410px] 3xl:max-h-[620px] overflow-y-auto">
-    <table class="w-full">
+    <div *ngIf="loading" class="mt-[3rem]">
+        <app-spinner/>
+    </div>
+    <table class="w-full" *ngIf="!loading">
         <thead class="bg-[#e8eef8] sticky top-0 z-[1]">
             <tr>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Personnel name</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Email address</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Email</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Profession</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Date</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Job title</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Score</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Approval status</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="text-sm text-paragraph tracking-wide" *ngFor="let personnel of personnels; let i = index">
+            <tr class="text-sm text-paragraph tracking-wide" *ngFor="let personnel of personnelDetails; let i = index">
                 <td class="px-5">
-                    <span class="flex items-center gap-[12px]">
-                        <span class="relative">
-                            <img src="../../../assets/user-avatar.svg" alt="user-avatar">
+                    <div class="flex items-center gap-[12px]">
+                        <div 
+                            class="relative w-[40px] h-[40px] rounded-full cursor-pointer flex items-center justify-center"
+                            *ngIf="personnel.image"
+                        >
+                            <img [src]="personnel.image" class="w-full h-full object-cover rounded-full" alt="user-avatar">
                             <span
                                 [ngClass]="{
-                                    'bg-primary animate-pulse': personnel.available === true,
-                                    'bg-gray-400': personnel.available === false
+                                    'bg-primary animate-pulse': personnel.status === 'VERIFIED',
+                                    'bg-pending animate-pulse': personnel.status === 'PENDING'
                                 }"
                                 class="w-[10px] h-[10px] rounded-full absolute bottom-0 right-0"
                             ></span>
-                        </span>
+                        </div>
                         <p class="text-paragraph text-sm">{{personnel.name}}</p>
-                    </span>
+                    </div>
                 </td>
                 <td class="px-5 text-paragraph text-sm">{{personnel.email}}</td>
-                <td class="px-5 text-paragraph text-sm">{{personnel.date}}</td>
-                <td class="px-5 text-paragraph text-sm">{{personnel.title}}</td>
-                <td class="px-5 text-paragraph text-sm">{{personnel.score}}</td>
+                <td class="px-5 text-paragraph text-sm">{{personnel.profession}}</td>
+                <td class="px-5 text-paragraph text-sm">{{personnel.createdAt | date}}</td>
                 <td class="px-5 text-paragraph text-sm">
                     <span 
                         [ngClass]="{
-                            'bg-pendingBg text-pending': personnel.status === 'Pending',
-                            'bg-secondary text-primary': personnel.status === 'Verified',
-                            'bg-suspendBg text-suspend': personnel.status === 'Suspend'
+                            'bg-pendingBg text-pending': personnel.status === 'PENDING',
+                            'bg-secondary text-primary': personnel.status === 'VERIFIED',
+                            'bg-suspendBg text-suspend': personnel.status === 'SUSPEND'
                         }"
                         class="px-[10px] py-[4px] text-xs rounded-full font-bold"
                     >
@@ -56,7 +60,7 @@
                         class="absolute right-6 2xl:right-20 mt-1 w-[222px] bg-white border border-border shadow-lg z-10"
                     >
                         <button 
-                            (click)="viewDetails(personnel)"
+                            routerLink="/admin-page/personnel-details"
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../assets/eye.svg" alt="eye">
@@ -75,3 +79,11 @@
         </tbody>
     </table>
 </div>
+
+<app-pagination
+  *ngIf="!loading && totalPersonnel > 9"
+  [totalData]="totalPersonnel"
+  [pageSize]="pageSize"
+  [currentPage]="currentPage"
+  (paginationChange)="handlePageChange($event)"
+></app-pagination>

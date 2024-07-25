@@ -1,41 +1,70 @@
-import { NgFor, NgClass, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { NgFor, NgClass, NgIf, DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Personnel } from '../../../model/profile';
+import { NgToastService } from 'ng-angular-popup';
+import { PersonnelService } from '../../../personnel/service/personnel.service';
+import { SpinnerComponent } from '../../spinner/spinner.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
 
 @Component({
   selector: 'app-personnel-table',
   standalone: true,
-  imports: [NgFor, NgClass, NgIf, RouterLink],
+  imports: [
+    NgFor, 
+    NgClass, 
+    NgIf, 
+    RouterLink,
+    SpinnerComponent,
+    PaginationComponent,
+    DatePipe
+  ],
   templateUrl: './personnel-table.component.html',
   styleUrl: './personnel-table.component.scss'
 })
-export class PersonnelTableComponent {
-  personnels = [
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 3, available: true, status: 'Pending' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 1, available: true, status: 'Verified' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 2, available: false, status: 'Pending' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 2, available: false, status: 'Verified' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 3, available: true, status: 'Pending' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 2, available: false, status: 'Verified' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 1, available: true, status: 'Pending' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 1, available: false, status: 'Verified' },
-    { name: 'George Asiedu', email: 'asiedug41@gmail.com', date: 'May 9, 2024', title: 'Developer', score: 2, available: true, status: 'Suspend' }
-  ]
+export class PersonnelTableComponent implements OnInit {
+  public personnelDetails: Personnel[] = [] 
+  public loading: boolean = true
+  public isEditModalOpen: boolean = false
+  public isDropdownVisible: boolean[] = []
+  public totalPersonnel: number = 0
+  public currentPage: number = 0 
+  public pageSize: number = 9
+  
 
-  isDropdownVisible: boolean[] = Array(this.personnels.length).fill(false);
+  constructor(
+    private toast: NgToastService,
+    private ps: PersonnelService) {}
 
-  constructor(private router: Router) {}
-
-  toggleDropdown(index: number) {
-    this.isDropdownVisible = this.isDropdownVisible.map((visible, i) => (i === index ? !visible : false));
+  ngOnInit(): void {
+    this.fetchPersonnels(this.currentPage)    
   }
 
-  viewDetails(personnel: any) {
-    console.log('Viewing details...', personnel)
-    this.router.navigate(['/admin-page/personnel-details'])
+  fetchPersonnels(page: number): void {
+    this.ps.getPersonnelData(page).subscribe({
+      next: (response) => {    
+        this.loading = false
+        this.personnelDetails = response.personnel
+        this.totalPersonnel = response.count
+        this.isDropdownVisible = Array(this.personnelDetails.length).fill(false)
+      }, error: () => {
+        this.loading = false
+        this.toast.danger('Failed to fetch personnel data', 'Error', 3000)
+      }
+    })
+  }
+
+  toggleDropdown(index: number) {
+    this.isDropdownVisible = this.isDropdownVisible.map((visible, i) => 
+      (i === index ? !visible : false))
   }
 
   deletePersonnel(personnel: any) {
     console.log('Deleting personnel...', personnel)
+  }
+
+  handlePageChange(page: number): void {
+    this.currentPage = page
+    this.fetchPersonnels(this.currentPage + 1)
   }
 }
