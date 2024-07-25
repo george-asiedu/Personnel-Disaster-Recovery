@@ -7,6 +7,12 @@ import { Role } from './model/login';
 import { EmergencyComponent } from './admin/emergency/emergency.component';
 import { EmergencyInitiativeComponent } from './admin/emergency-initiative/emergency-initiative.component';
 import { AccountSettingsComponent } from '../app/account-settings/account-settings.component';
+import { ProfessionComponent } from './admin/profession/profession.component';
+import { ManagerComponent } from './admin/manager/manager.component';
+import { PersonnelDashboardComponent } from '../app/personnel/personnel-dashboard/personnel-dashboard.component';
+import { PersonnelEmergencyComponent } from './personnel/personnel-emergency/personnel-emergency.component';
+import { ProjectsComponent } from './personnel/projects/projects.component';
+import { PersonnelHomeComponent } from './personnel/personnel-home/personnel-home.component';
 
 
 export const routes: Routes = [
@@ -63,8 +69,10 @@ export const routes: Routes = [
         children: [
             { path: '',  component: AdminDashboardHomeComponent },
             { path: 'personnels',  component: PersonnelsComponent },
-            { path: 'personnel-details',  component: PersonnelDetailsComponent },
+            { path: 'personnel-details/:name',  component: PersonnelDetailsComponent },
             { path: 'emergency',  component: EmergencyComponent },
+            { path: 'professions',  component: ProfessionComponent },
+            { path: 'managers',  component: ManagerComponent },
             { path: 'emergency-initiative',  component: EmergencyInitiativeComponent },
             { path: 'account-settings/:name',  component: AccountSettingsComponent }
         ]
@@ -76,8 +84,22 @@ export const routes: Routes = [
         title: 'Personnel Disaster Recovery | Personnel Profile Page',
         canActivate: [canActivate],
         canMatch: [canMatch],
-        // canDeactivate: [canDeactivate],
         data: { roles: [Role.PERSONNEL] }
+    },
+    {
+        path: 'personnel-dashboard',
+        loadComponent: () => import('../app/personnel/personnel-dashboard/personnel-dashboard.component')
+            .then(c => c.PersonnelDashboardComponent),
+        title: 'Personnel Disaster Recovery | Personnel Dashboard Page',
+        canActivate: [canActivate],
+        canMatch: [canMatch],
+        data: { roles: [Role.PERSONNEL] },
+        children: [
+            { path: '',  component: PersonnelHomeComponent },
+            { path: 'emergency-initiative',  component: PersonnelEmergencyComponent },
+            { path: 'projects',  component: ProjectsComponent },
+            { path: 'account-settings/:name',  component: AccountSettingsComponent }       
+        ]
     },
     {
         path: '',
