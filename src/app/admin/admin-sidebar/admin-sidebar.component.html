@@ -15,7 +15,25 @@
         [routerLinkActiveOptions]="{ exact: true }"
     >
         <img src="../../../assets/alert-triangle.svg" alt="alert-icon">
-        <h5 class="text-heading tracking-wide">Emergency</h5>
+        <h5 class="text-heading tracking-wide">Emergencies</h5>
+    </div>
+    <div 
+        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
+        routerLink="/admin-page/professions"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <img src="../../../assets/alert-triangle.svg" alt="alert-icon">
+        <h5 class="text-heading tracking-wide">Professions</h5>
+    </div>
+    <div 
+        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
+        routerLink="/admin-page/managers"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+    >
+        <img src="../../../assets/report.svg" alt="report-icon">
+        <h5 class="text-heading tracking-wide">Mangers</h5>
     </div>
     <div 
         class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
@@ -34,15 +52,6 @@
     >
         <img src="../../../assets/ranking.svg" alt="ranking-icon">
         <h5 class="text-heading tracking-wide">Emergency initiative</h5>
-    </div>
-    <div 
-        class="flex items-center gap-[10px] cursor-pointer p-[10px] hover:bg-secondary rounded-lg" 
-        routerLink="/admin-page/manager"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-    >
-        <img src="../../../assets/report.svg" alt="report-icon">
-        <h5 class="text-heading tracking-wide">Mangers</h5>
     </div>
     <span (click)="toggleSidebar()" class="cursor-pointer bg-white absolute top-4 -right-5 shadow-md w-[40px] h-[40px] rounded-full flex items-center justify-center">
         <img src="../../../assets/chevron-left.svg" alt="arrow-left">

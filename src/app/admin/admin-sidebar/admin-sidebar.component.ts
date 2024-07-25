@@ -11,9 +11,9 @@ import { RouterModule } from '@angular/router'
   styleUrl: './admin-sidebar.component.scss'
 })
 export class AdminSidebarComponent {
-  isSidebarCollapsed = false;
+  isSidebarCollapsed = false
 
   toggleSidebar() {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+    this.isSidebarCollapsed = !this.isSidebarCollapsed
   }
 }
