@@ -1,0 +1,32 @@
+<div class="w-full py-[2rem] 3xl:py-[3rem] lg:px-[2rem] flex flex-col gap-[1rem]">
+    <header class="w-full flex items-center justify-between">
+        <div class="flex items-center gap-[8px]">
+            <h3 class="text-heading tracking-wide font-medium text-lg">Projects</h3>
+            <span class="bg-secondary animate-pulse w-[30px] h-[30px] flex items-center justify-center cursor-pointer rounded-full">
+                <h6 class="text-xs font-medium text-center">9</h6>
+            </span>
+        </div>
+        <div class="flex items-center gap-[1rem]">
+            <div class="bg-white border border-border w-[320px] h-[44px] px-[16px] flex items-center gap-[10px] rounded-lg shadow-sm shadow-border">
+                <img src="../../../assets/search.svg" alt="search-icon">
+                <input 
+                    type="search" 
+                    placeholder="Search project name"
+                    class="bg-inherit w-full h-[70%] border-none focus-within:outline-none caret-primary placeholder:text-paragraph"
+                >
+            </div>
+            <button 
+                type="button" 
+                (click)="showModal()"
+                class="bg-primary hover:bg-tertiary text-white text-sm font-semibold text-center px-[14px] py-[8px] rounded-lg border border-primary">
+                Add project
+            </button>
+        </div>
+    </header>
+
+    <app-project-modal
+        *ngIf="isModalVisible"
+        (cancel)="cancelModal()"
+        (confirm)="confirmData()"
+    />
+</div>
