@@ -60,14 +60,14 @@
                         class="absolute right-6 2xl:right-20 mt-1 w-[222px] bg-white border border-border shadow-lg z-10"
                     >
                         <button 
-                            routerLink="/admin-page/personnel-details"
+                            routerLink="personnel-details/{{personnel.id}}"
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../assets/eye.svg" alt="eye">
                             <p class="text-heading text-left tracking-wide">View details</p>
                         </button>
                         <button 
-                            (click)="deletePersonnel(personnel)" 
+                            (click)="deletePersonnel(personnel.id)" 
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../assets/trash.svg" alt="trash">
@@ -81,7 +81,7 @@
 </div>
 
 <app-pagination
-  *ngIf="!loading && totalPersonnel > 9"
+  *ngIf="!loading && totalPersonnel > pageSize"
   [totalData]="totalPersonnel"
   [pageSize]="pageSize"
   [currentPage]="currentPage"

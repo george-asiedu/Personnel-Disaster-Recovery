@@ -1,22 +1,27 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
+import { Project, Projects } from '../../model/project';
+import { PersonnelService } from '../../personnel/service/personnel.service';
+import { nameValidator } from '../../validators/nameValidator';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { NgIf } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { nameValidator } from '../../validators/nameValidator';
-import { PersonnelService } from '../../personnel/service/personnel.service';
-import { NgToastService } from 'ng-angular-popup';
-import { Project } from '../../model/project';
 
 @Component({
-  selector: 'app-project-modal',
+  selector: 'app-edit-project-modal',
   standalone: true,
-  imports: [SpinnerComponent, NgIf, ReactiveFormsModule],
-  templateUrl: './project-modal.component.html',
-  styleUrl: './project-modal.component.scss'
+  imports: [
+    ReactiveFormsModule,
+    SpinnerComponent,
+    NgIf
+  ],
+  templateUrl: './edit-project-modal.component.html',
+  styleUrl: './edit-project-modal.component.scss'
 })
-export class ProjectModalComponent {
+export class EditProjectModalComponent implements OnChanges {
   @Output() cancel = new EventEmitter<void>()
   @Output() submit = new EventEmitter<void>()
+  @Input() project: Projects | null = null
   public loading: boolean = false
   public projectForm: FormGroup
   public charCount: number = 0
@@ -32,15 +37,21 @@ export class ProjectModalComponent {
     })
   }
 
-  onSubmit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['project'] && this.project) {
+      this.setProject(this.project)
+    }
+  }
+
+  onUpdate(): void {
     if(this.projectForm.invalid) {
       return
     }
 
     this.loading = true
-    const project: Project = this.projectForm.value
+    const updatedProject: Project = this.projectForm.value
 
-    this.ps.addProject(project).subscribe({
+    this.ps.updateProject(this.project!.id, updatedProject).subscribe({
       next: (response) => {
         this.loading = false
         this.toast.success(response.message, 'Success', 3000)
@@ -48,13 +59,21 @@ export class ProjectModalComponent {
         this.submit.emit()
       }, error: (err) => {
         this.loading = false
-        this.toast.danger('Error adding project', 'Error', 3000)
+        this.toast.danger(err?.error?.message, 'Error', 3000)
       }
     })
   }
 
   onCancel() {
     this.cancel.emit()
+  }
+
+  private setProject(project: Projects) {
+    this.projectForm.setValue({
+      title: project.title,
+      description: project.description
+    })
+    this.charCount = project.description.length
   }
 
   updateCharacterCount(event: Event) {

@@ -1,7 +1,7 @@
 <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
     <div class="bg-white p-[24PX] w-[400px] rounded-xl shadow-xl">
         <span class="flex items-center justify-between mb-4">
-            <h3 class="text-heading font-semibold text-lg">Add manager</h3>
+            <h3 class="text-heading font-semibold text-lg">Edit manager</h3>
             <button (click)="onCancel()" class="text-black text-2xl">&times;</button>
         </span>
         <form class="flex flex-col gap-[10px]" [formGroup]="managerForm" (ngSubmit)="onSubmit()"> 
@@ -59,27 +59,6 @@
                     <div *ngIf="managerForm.get('phoneNumber')?.invalid && managerForm.get('phoneNumber')?.touched">invalid phone number</div>
                 </div>
             </div>
-            <div class="flex flex-col gap-[4px]">
-                <label for="image" class="text-heading font-medium tracking-wide text-sm">Image</label>
-                <input 
-                  type="file"
-                  required
-                  id="image"
-                  formControlName="image"
-                  (change)="onFileSelected($event)"
-                  class="file:mr-4 file:py-1 file:px-4
-                  file:rounded-full file:border-0
-                  file:text-sm file:font-semibold
-                  file:bg-pendingBg file:text-pending
-                  hover:file:bg-violet-100 border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-lg w-full"
-                >
-                <div 
-                  class="text-red-500 text-[12px] flex items-center justify-between"
-                  *ngIf="managerForm.get('image')?.invalid && (managerForm.get('image')?.touched || managerForm.get('image')?.dirty)"
-                >
-                  <div *ngIf="managerForm.get('image')?.errors?.['required']">Image is required</div>
-                </div>
-              </div>
             <div class="w-full flex items-center gap-4">
                 <button 
                     class="w-[48%] bg-white text-heading rounded-lg py-[8px] px-[14px] border border-border font-medium"
@@ -92,10 +71,10 @@
                     type="submit"
                     [disabled]="managerForm.invalid"
                 >
-                    <p *ngIf="!loading" class="tracking-wide font-medium text-white">Save</p>
+                    <p *ngIf="!loading" class="tracking-wide font-medium text-white">Update</p>
                     <span *ngIf="loading" class="flex items-center gap-[10px]">
                         <app-spinner/> 
-                        <p class="text-white font-medium tracking-wide">Saving...</p>
+                        <p class="text-white font-medium tracking-wide">Updating...</p>
                     </span>
                 </button>
             </div>

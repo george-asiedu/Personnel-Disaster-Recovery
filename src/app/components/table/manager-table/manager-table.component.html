@@ -5,29 +5,46 @@
     <table class="w-full" *ngIf="!loading">
         <thead class="bg-[#e8eef8] sticky top-0 z-[1]">
             <tr>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Emergency ID</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Emergency type</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Name</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Email</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Phone number</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Date</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Status</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="text-sm text-paragraph tracking-wide"  *ngFor="let emergency of emergencies; let i = index">
+            <tr class="text-sm text-paragraph tracking-wide"  *ngFor="let manager of managers; let i = index">
                 <td class="px-5">
-                    <p class="text-paragraph text-sm">{{ emergency.id }}</p>
+                    <div class="flex items-center gap-[12px]">
+                        <div 
+                            class="relative w-[40px] h-[40px] rounded-full cursor-pointer flex items-center justify-center"
+                            *ngIf="manager.image"
+                        >
+                            <img [src]="manager.image" class="w-full h-full object-cover rounded-full" alt="user-avatar">
+                            <span
+                                [ngClass]="{
+                                    'bg-primary animate-pulse': manager.status === 'AVAILABLE',
+                                    'bg-pending animate-pulse': manager.status === 'REMOVED'
+                                }"
+                                class="w-[10px] h-[10px] rounded-full absolute bottom-0 right-0"
+                            ></span>
+                        </div>
+                        <p class="text-paragraph text-sm">{{manager.name}}</p>
+                    </div>
                 </td>
-                <td class="px-5 text-paragraph text-sm">{{ emergency.name }}</td>
-                <td class="px-5 text-paragraph text-sm">{{ emergency.created_at | date }}</td>
+                <td class="px-5 text-paragraph text-sm">{{ manager.email }}</td>
+                <td class="px-5 text-paragraph text-sm">{{ manager.phoneNumber }}</td>
+                <td class="px-5 text-paragraph text-sm">{{ manager.created_at | date }}</td>
                 <td class="px-5 text-paragraph text-sm">
                     <span 
                         [ngClass]="{
-                            'bg-pendingBg text-pending': emergency.status === 'ACTIVE',
-                            'bg-suspendBg text-suspend': emergency.status === 'REMOVED',
+                            'bg-pendingBg text-pending': manager.status === 'AVAILABLE',
+                            'bg-suspendBg text-suspend': manager.status === 'REMOVED',
                         }"
                         class="px-[14px] py-[4px] text-xs rounded-full font-bold"
                     >
-                        {{emergency.status}}
+                        {{manager.status}}
                     </span>
                 </td>
                 <td class="py-4 px-5 text-paragraph relative">
@@ -42,29 +59,36 @@
                         class="absolute right-6 2xl:right-20 mt-1 w-[222px] bg-white border border-border shadow-lg z-10"
                     >
                         <button 
-                            (click)="OpenEditEmergency()"
+                            (click)="OpenEditManager(manager)"
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../../assets/edit.svg" alt="edit">
-                            <p class="text-heading text-left tracking-wide">Edit emergency</p>
+                            <p class="text-heading text-left tracking-wide">Edit manager</p>
                         </button>
                         <button 
-                            (click)="closeEditEmergencyModal()" 
+                            (click)="deleteManager(manager.id)" 
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../../assets/trash.svg" alt="trash">
-                            <p class="text-heading text-left tracking-wide">Delete emergency</p>
+                            <p class="text-heading text-left tracking-wide">Delete manager</p>
                         </button>
                     </div>
                 </td>
             </tr>                        
         </tbody>
     </table>
+
+    <app-edit-manager-modal
+        *ngIf="isEditModalOpen"
+        [manager]="selectedManager"
+        (cancel)="closeEditManagerModal()"
+        (submit)="onEditManagerSubmit()"
+    />
 </div>
 
 <app-pagination
-  *ngIf="!loading"
-  [totalData]="totalEmergencies"
+  *ngIf="!loading && totalManagers > pageSize"
+  [totalData]="totalManagers"
   [pageSize]="pageSize"
   [currentPage]="currentPage"
   (paginationChange)="handlePageChange($event)"

@@ -1,12 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { NgFor, NgIf } from '@angular/common';
 import { NgToastService } from 'ng-angular-popup';
 import { ProfessionService } from '../../admin/service/profession/profession.service';
 import { nameValidator } from '../../validators/nameValidator';
-import { EmergencyService } from '../../admin/service/emergency/emergency.service';
-import { EmergencyType } from '../../model/emergency-types';
 
 @Component({
   selector: 'app-create-profession-modal',
@@ -51,7 +49,6 @@ export class CreateProfessionModalComponent {
         this.submit.emit()
       },
       error: (err) => {
-        console.error('error', err)
         this.loading = false
         this.toast.danger((err?.error?.message || 'Error adding profession'), "Error", 3000)
       }

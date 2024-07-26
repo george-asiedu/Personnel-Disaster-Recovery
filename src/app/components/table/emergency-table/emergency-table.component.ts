@@ -30,6 +30,7 @@ export class EmergencyTableComponent implements OnInit {
   public totalEmergencies: number = 0
   public currentPage: number = 0 
   public pageSize: number = 9
+  public selectedEmergency: EmergencyType | null = null
 
   constructor(
     private toast: NgToastService,
@@ -49,9 +50,9 @@ export class EmergencyTableComponent implements OnInit {
         this.totalEmergencies = response.data.count
         this.isDropdownVisible = Array(this.emergencies.length).fill(false)
       },
-      error: () => {
+      error: (err) => {
         this.loading = false
-        this.toast.danger('Failed to fetch emergencies', "Error", 3000 )
+        this.toast.danger(err.error?.message, "Error", 3000 )
       }
     })
   }
@@ -62,21 +63,32 @@ export class EmergencyTableComponent implements OnInit {
     )
   }
 
-  OpenEditEmergency() {
+  OpenEditEmergency(emergency: EmergencyType) {
+    this.selectedEmergency = emergency
     this.isEditModalOpen = true
   }
 
   closeEditEmergencyModal() {
     this.isEditModalOpen = false
+    this.selectedEmergency = null
   }
 
   onEditEmergencySubmit() {
     this.isEditModalOpen = false
-    this.toast.success('Emergency edited successfully', 'Success', 3000)
+    this.fetchEmergencies(this.currentPage)
   }
 
-  deleteEmergency(emergency: any) {
-    console.log('Deleting emergency...', emergency)
+  deleteEmergency(id: string) {
+    this.es.deleteEmergency(id).subscribe({
+      next: (response) => {
+        this.loading = false
+        this.toast.success(response.message, 'Success', 3000)
+        this.fetchEmergencies(this.currentPage)
+      }, error: (err) => {
+        this.loading = false
+        this.toast.danger(err.error?.message, 'Error', 3000)
+      }
+    })
   }
 
   handlePageChange(page: number): void {

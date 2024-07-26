@@ -42,14 +42,14 @@
                         class="absolute right-6 2xl:right-20 mt-1 w-[222px] bg-white border border-border shadow-lg z-10"
                     >
                         <button 
-                            (click)="OpenEditEmergency()"
+                            (click)="OpenEditEmergency(emergency)"
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../../assets/edit.svg" alt="edit">
                             <p class="text-heading text-left tracking-wide">Edit emergency</p>
                         </button>
                         <button 
-                            (click)="closeEditEmergencyModal()" 
+                            (click)="deleteEmergency(emergency.id)" 
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../../assets/trash.svg" alt="trash">
@@ -63,13 +63,14 @@
     
     <app-edit-emergency-modal 
         *ngIf="isEditModalOpen"
+        [emergency]="selectedEmergency"
         (cancel)="closeEditEmergencyModal()"
         (submit)="onEditEmergencySubmit()"
     />
 </div>
 
 <app-pagination
-  *ngIf="!loading"
+  *ngIf="!loading && totalEmergencies > pageSize"
   [totalData]="totalEmergencies"
   [pageSize]="pageSize"
   [currentPage]="currentPage"

@@ -23,8 +23,8 @@ export class ManagerModalComponent {
   @Output() cancel = new EventEmitter<void>()
   @Output() submit = new EventEmitter<void>()
   public loading: boolean = false
-  public managers: Manager[] = []
   public managerForm: FormGroup
+  public selectedImageFile: File | null = null
 
   constructor(
     private toast: NgToastService,
@@ -32,29 +32,36 @@ export class ManagerModalComponent {
     private fb: FormBuilder) {
     this.managerForm = this.fb.group({
       name: ['', [Validators.required, nameValidator()]],
-      institution: ['', [Validators.required, nameValidator()]],
+      image: ['', Validators.required],
       email: ['', [Validators.email, Validators.required]],
       phoneNumber: ['', [Validators.required, phoneNumberValidator()]]
     })
   }
 
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0]
+    if (file) {
+      this.selectedImageFile = file
+    }
+  }
+
   onSubmit(): void {
-    if(this.managerForm.invalid) {
+    if(this.managerForm.invalid || !this.selectedImageFile) {
       return
     }
 
     this.loading = true
     const manager: Manager = this.managerForm.value
 
-    this.manager.addManager(manager).subscribe({
+    this.manager.addManager(manager, this.selectedImageFile).subscribe({
       next: (response) => {
         this.loading = false
-        this.managers = response.data.manager
         this.toast.success('Manager added successfully', response.message, 3000)
         this.managerForm.reset()
         this.submit.emit()
-      }, error: () => {
+      }, error: (err) => {
         this.loading = false
+        console.error('Error adding file', err)
         this.toast.danger('Error adding manager', 'Error', 3000)
       }
     })

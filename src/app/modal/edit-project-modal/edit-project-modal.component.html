@@ -1,10 +1,10 @@
 <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
     <div class="bg-white p-[24PX] w-[400px] rounded-xl shadow-xl">
         <span class="flex items-center justify-between mb-4">
-            <h3 class="text-heading font-semibold text-lg">Add project</h3>
+            <h3 class="text-heading font-semibold text-lg">Edit project</h3>
             <button (click)="onCancel()" class="text-black text-2xl">&times;</button>
         </span>
-        <form class="flex flex-col gap-[10px]" [formGroup]="projectForm" (ngSubmit)="onSubmit()"> 
+        <form class="flex flex-col gap-[10px]" [formGroup]="projectForm" (ngSubmit)="onUpdate()"> 
             <div class="flex flex-col gap-[4px]">
                 <label for="title" class="text-paragraph font-medium tracking-wide text-sm">Project title</label>
                 <input 
@@ -43,6 +43,7 @@
                     *ngIf="projectForm.get('description')?.invalid && (projectForm.get('description')?.touched || projectForm.get('description')?.dirty)"
                 >
                     <div *ngIf="projectForm.get('description')?.errors?.['required']">description is required</div>
+                    <div *ngIf="projectForm.get('description')?.errors?.['maxLength']">must be 250 characters</div>
                     <div *ngIf="projectForm.get('description')?.invalid && projectForm.get('description')?.touched">must only contain alphabets</div>
                 </div>
             </div>
@@ -50,6 +51,7 @@
                 <button 
                     class="w-[48%] bg-white text-heading rounded-lg py-[8px] px-[14px] border border-border font-medium"
                     (click)="onCancel()"
+                    type="button"
                 >
                     Cancel
                 </button>
@@ -58,10 +60,10 @@
                     type="submit"
                     [disabled]="projectForm.invalid"
                 >
-                    <p *ngIf="!loading" class="tracking-wide font-medium text-white">Save</p>
+                    <p *ngIf="!loading" class="tracking-wide font-medium text-white">Update</p>
                     <span *ngIf="loading" class="flex items-center gap-[10px]">
                         <app-spinner/> 
-                        <p class="text-white font-medium tracking-wide">Saving...</p>
+                        <p class="text-white font-medium tracking-wide">Updating...</p>
                     </span>
                 </button>
             </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { EmergencyService } from '../../../admin/service/emergency/emergency.service';
 import { EmergencyType } from '../../../model/emergency-types';
@@ -6,6 +6,9 @@ import { PaginationComponent } from '../../pagination/pagination.component';
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { SpinnerComponent } from '../../spinner/spinner.component';
 import { ManagerModalComponent } from '../../../modal/manager-modal/manager-modal.component';
+import { ManagerService } from '../../../admin/service/manager/manager.service';
+import { Managers } from '../../../model/manager';
+import { EditManagerModalComponent } from '../../../modal/edit-manager-modal/edit-manager-modal.component';
 
 @Component({
   selector: 'app-manager-table',
@@ -16,41 +19,43 @@ import { ManagerModalComponent } from '../../../modal/manager-modal/manager-moda
     NgClass,
     NgFor,
     SpinnerComponent,
-    DatePipe
+    DatePipe,
+    EditManagerModalComponent
   ],
   templateUrl: './manager-table.component.html',
   styleUrl: './manager-table.component.scss'
 })
-export class ManagerTableComponent {
+export class ManagerTableComponent implements OnInit {
   public isEditModalOpen: boolean = false
   public loading: boolean = false
-  public emergencies: EmergencyType[] = []
+  public managers: Managers[] = []
   public isDropdownVisible: boolean[] = []
-  public totalEmergencies: number = 0
+  public totalManagers: number = 0
   public currentPage: number = 0 
   public pageSize: number = 9
+  public selectedManager: Managers | null = null
 
   constructor(
     private toast: NgToastService,
-    private es: EmergencyService
+    private ms: ManagerService
   ) {}
 
   ngOnInit(): void {
-    this.fetchEmergencies(this.currentPage)
+    this.fetchManagers(this.currentPage)
   }
 
-  fetchEmergencies(page: number): void {
+  fetchManagers(page: number): void {
     this.loading = true
-    this.es.getEmergencies(page).subscribe({
+    this.ms.getManagers(page).subscribe({
       next: (response) => {
         this.loading = false
-        this.emergencies = response.data.emergencyTypes
-        this.totalEmergencies = response.data.count
-        this.isDropdownVisible = Array(this.emergencies.length).fill(false)
+        this.managers = response.data.managers
+        this.totalManagers = response.data.count
+        this.isDropdownVisible = Array(this.managers.length).fill(false)
       },
       error: () => {
         this.loading = false
-        this.toast.danger('Failed to fetch emergencies', "Error", 3000 )
+        this.toast.danger('Failed to fetch managers', "Error", 3000)
       }
     })
   }
@@ -61,25 +66,36 @@ export class ManagerTableComponent {
     )
   }
 
-  OpenEditEmergency() {
+  OpenEditManager(manager: Managers) {
+    this.selectedManager = manager
     this.isEditModalOpen = true
   }
 
-  closeEditEmergencyModal() {
+  closeEditManagerModal() {
     this.isEditModalOpen = false
+    this.selectedManager = null
   }
 
-  onEditEmergencySubmit() {
+  onEditManagerSubmit() {
     this.isEditModalOpen = false
-    this.toast.success('Emergency edited successfully', 'Success', 3000)
+    this.fetchManagers(this.currentPage)
   }
 
-  deleteEmergency(emergency: any) {
-    console.log('Deleting emergency...', emergency)
+  deleteManager(id: string) {
+    this.ms.deleteManager(id).subscribe({
+      next: (response) => {
+        this.loading = false
+        this.toast.success(response.message, 'Success', 3000)
+        this.fetchManagers(this.currentPage)
+      }, error: (err) => {
+        this.loading = false
+        this.toast.danger(err.error?.message, 'Error', 3000)
+      }
+    })
   }
 
   handlePageChange(page: number): void {
     this.currentPage = page
-    this.fetchEmergencies(this.currentPage + 1)
+    this.fetchManagers(this.currentPage + 1)
   }
 }

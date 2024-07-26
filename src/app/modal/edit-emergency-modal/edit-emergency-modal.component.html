@@ -4,29 +4,43 @@
             <h3 class="text-heading font-semibold text-lg">Edit emergency</h3>
             <button (click)="onCancel()" class="text-black text-2xl">&times;</button>
         </span>
-        <form class="flex flex-col gap-[10px]"> 
+        <form class="flex flex-col gap-[10px]" [formGroup]="emergencyForm" (ngSubmit)="onSubmit()"> 
             <div class="flex flex-col gap-[4px]">
-                <label for="emergencyType" class="text-paragraph font-medium tracking-wide text-sm">Emergency type</label>
+                <label for="name" class="text-paragraph font-medium tracking-wide text-sm">Emergency type</label>
                 <input 
                     type="text"
                     required
-                    id="emergencyType"
+                    id="name"
+                    formControlName="name"
                     placeholder="Enter emergency type"
                     class="border border-border py-[10px] px-[14px] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-xs text-heading rounded-lg w-full"
                 >
+                <div 
+                    class="text-red-500 text-[12px] flex items-center justify-between"
+                    *ngIf="emergencyForm.get('name')?.invalid && (emergencyForm.get('name')?.touched || emergencyForm.get('name')?.dirty)"
+                >
+                    <div *ngIf="emergencyForm.get('name')?.errors?.['required']">emergency name is required</div>
+                    <div *ngIf="emergencyForm.get('name')?.invalid && emergencyForm.get('name')?.touched">must only contain alphabets</div>
+                </div>
             </div>
             <div class="w-full flex items-center gap-4">
                 <button 
                     class="w-[48%] bg-white text-heading rounded-lg py-[8px] px-[14px] border border-border font-medium"
                     (click)="onCancel()"
+                    type="button"
                 >
                     Cancel
                 </button>
                 <button 
                     class="w-[48%] bg-primary text-white rounded-lg py-[8px] px-[14px] font-medium"
-                    (click)="onSubmit()"
+                    type="submit"
+                    [disabled]="emergencyForm.invalid"
                 >
-                    Save changes
+                    <p *ngIf="!loading" class="tracking-wide font-medium text-white">Update</p>
+                    <span *ngIf="loading" class="flex items-center gap-[10px]">
+                        <app-spinner/> 
+                        <p class="text-white font-medium tracking-wide">Updating...</p>
+                    </span>
                 </button>
             </div>
         </form>

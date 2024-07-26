@@ -5,31 +5,20 @@
     <table class="w-full" *ngIf="!loading">
         <thead class="bg-[#e8eef8] sticky top-0 z-[1]">
             <tr>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Profession ID</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Profession name</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Project title</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Description</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Date</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Status</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="text-sm text-paragraph tracking-wide"  *ngFor="let profession of professions; let i = index">
-                <td class="px-5">
-                    <p class="text-paragraph text-sm">{{ profession.id }}</p>
-                </td>
-                <td class="px-5 text-paragraph text-sm">{{ profession.name }}</td>
-                <td class="px-5 text-paragraph text-sm">{{ profession.created_at | date }}</td>
+            <tr class="text-sm text-paragraph tracking-wide"  *ngFor="let project of projects; let i = index">
+                <td class="px-5 text-paragraph text-sm">{{ project.title }}</td>
                 <td class="px-5 text-paragraph text-sm">
-                    <span 
-                        [ngClass]="{
-                            'bg-pendingBg text-pending': profession.status === 'AVAILABLE',
-                            'bg-suspendBg text-suspend': profession.status === 'REMOVED',
-                        }"
-                        class="px-[14px] py-[4px] text-xs rounded-full font-bold"
-                    >
-                        {{profession.status}}
-                    </span>
+                    {{ project.description | slice:0:50 }}
+                    <span *ngIf="project.description.length > 50">...</span>
                 </td>
+                <td class="px-5 text-paragraph text-sm">{{ project.created_at | date }}</td>
                 <td class="py-4 px-5 text-paragraph relative">
                     <img 
                         src="../../../assets/action.svg" 
@@ -42,18 +31,18 @@
                         class="absolute right-6 2xl:right-20 mt-1 w-[222px] bg-white border border-border shadow-lg z-10"
                     >
                         <button 
-                            (click)="OpenEditProfession(profession)"
+                            (click)="openEditProject(project)"
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../../assets/edit.svg" alt="edit">
-                            <p class="text-heading text-left tracking-wide">Edit profession</p>
+                            <p class="text-heading text-left tracking-wide">Edit project</p>
                         </button>
                         <button 
-                            (click)="deleteProfession(profession.id)" 
+                            (click)="deleteProject(project.id)" 
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../../assets/trash.svg" alt="trash">
-                            <p class="text-heading text-left tracking-wide">Delete profession</p>
+                            <p class="text-heading text-left tracking-wide">Delete project</p>
                         </button>
                     </div>
                 </td>
@@ -61,17 +50,17 @@
         </tbody>
     </table>
     
-    <app-edit-profession-modal 
+    <app-edit-project-modal
         *ngIf="isEditModalOpen"
-        [profession]="selectedProfession"
-        (cancel)="closeEditProfessionModal()"
-        (submit)="onEditProfessionSubmit()"
+        [project]="selectedProject"
+        (cancel)="closeEditProject()"
+        (submit)="onEditProjectSubmit()"
     />
 </div>
 
 <app-pagination
-  *ngIf="!loading"
-  [totalData]="totalProfessions"
+  *ngIf="!loading && totalProjects > pageSize"
+  [totalData]="totalProjects"
   [pageSize]="pageSize"
   [currentPage]="currentPage"
   (paginationChange)="handlePageChange($event)"

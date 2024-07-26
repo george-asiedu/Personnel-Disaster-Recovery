@@ -30,6 +30,7 @@ export class ProfessionTableComponent implements OnInit {
   public totalProfessions: number = 0
   public currentPage: number = 0 
   public pageSize: number = 9
+  public selectedProfession: Profession | null = null
 
   constructor (
     private toast: NgToastService,
@@ -47,9 +48,9 @@ export class ProfessionTableComponent implements OnInit {
         this.professions = response.data.professions
         this.totalProfessions = response.data.count
         this.isDropdownVisible = Array(this.professions.length).fill(false)
-      }, error: () => {
+      }, error: (err) => {
         this.loading = false
-        this.toast.danger('Failed to fetch professions', "Error", 3000 )
+        this.toast.danger(err.error?.message, "Error", 3000 )
       }
     })
   }
@@ -60,7 +61,8 @@ export class ProfessionTableComponent implements OnInit {
     )
   }
 
-  OpenEditProfession() {
+  OpenEditProfession(profession: Profession) {
+    this.selectedProfession = profession
     this.isEditModalOpen = true
   }
 
@@ -70,15 +72,25 @@ export class ProfessionTableComponent implements OnInit {
 
   closeEditProfessionModal() {
     this.isEditModalOpen = false
+    this.selectedProfession = null
   }
 
   onEditProfessionSubmit() {
     this.isEditModalOpen = false
-    this.toast.success('Profession edited successfully', 'Success', 3000)
+    this.fetchProfessions(this.currentPage)
   }
 
-  deleteProfession(profession: any) {
-    console.log('Deleting emergency...', profession)
+  deleteProfession(id: string) {
+    this.ps.deleteProfession(id).subscribe({
+      next: (response) => {
+        this.loading = false
+        this.toast.success(response.message, 'Success', 3000)
+        this.fetchProfessions(this.currentPage)
+      }, error: (err) => {
+        this.loading = false
+        this.toast.danger(err.error?.message, 'Error', 3000)
+      }
+    })
   }
 
   handlePageChange(page: number): void {

@@ -59,8 +59,22 @@ export class PersonnelTableComponent implements OnInit {
       (i === index ? !visible : false))
   }
 
-  deletePersonnel(personnel: any) {
-    console.log('Deleting personnel...', personnel)
+  deletePersonnel(id: string) {
+    const confirmDeletion = window.confirm('Are you sure you want to delete this personnel?')
+    if (!confirmDeletion) {
+      return
+    }
+
+    this.ps.deletePersonnelProfile(id).subscribe({
+      next: (response) => {
+        this.loading = false
+        this.toast.success(response.message, 'Success', 3000)
+        this.fetchPersonnels(this.currentPage)
+      }, error: (err) => {
+        this.loading = false
+        this.toast.danger(err.error?.message, 'Error', 3000)
+      }
+    })
   }
 
   handlePageChange(page: number): void {
