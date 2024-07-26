@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { Observable } from 'rxjs';
-import { Manager, ManagerResponse } from '../../../model/manager';
+import { GetManagerResponse, Manager, ManagerResponse } from '../../../model/manager';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,25 @@ export class ManagerService {
 
   constructor(private http: HttpClient) { }
 
-  addManager(manager: Manager): Observable<ManagerResponse> {
-    return this.http.post<ManagerResponse>(`${this.baseUrl}/manager`, manager)
+  addManager(manager: Manager, image: File): Observable<ManagerResponse> {
+    const formData = new FormData()
+    formData.append('name', manager.name)
+    formData.append('phoneNumber', manager.phoneNumber)
+    formData.append('email', manager.email)
+    formData.append('image', image)
+
+    return this.http.post<ManagerResponse>(`${this.baseUrl}/managers`, formData)
   }
 
-  getManager(page: number, want: string): Observable<ManagerResponse> {
-    return this.http.get<ManagerResponse>(`${this.baseUrl}/manager?page=${page}&want=${want}`)
+  getManagers(page: number, want?: string): Observable<GetManagerResponse> {
+    return this.http.get<GetManagerResponse>(`${this.baseUrl}/managers?page=${page}&want=${want}`)
+  }
+
+  updateManager(id: string, manager: Manager): Observable<ManagerResponse> {
+    return this.http.put<ManagerResponse>(`${this.baseUrl}/managers/${id}`, manager)
+  }
+
+  deleteManager(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/managers/${id}`)
   }
 }

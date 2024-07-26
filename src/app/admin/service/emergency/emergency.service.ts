@@ -20,11 +20,11 @@ export class EmergencyService {
     return this.http.get<GetEmergencyTypes>(`${this.baseUrl}/emergency-types?page=${page}&want=${want}`)
   }
 
-  editEmergency(id: string, type: EmergencyTypes): Observable<EmergencyTypes> {
-    return this.http.put<EmergencyTypes>(`${this.baseUrl}/emergency-types/${id}`, type)
+  editEmergency(id: string, name: string): Observable<EmergencyTypes> {
+    return this.http.put<EmergencyTypes>(`${this.baseUrl}/emergency-types/${id}`, name)
   }
 
-  deleteEmergency(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/emergency-types/${id}`)
+  deleteEmergency(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/emergency-types/${id}`)
   }
 }

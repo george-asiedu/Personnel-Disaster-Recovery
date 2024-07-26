@@ -20,11 +20,11 @@ export class ProfessionService {
     return this.http.get<GetProfession>(`${this.baseUrl}/professions?page=${page}&want=${want}`)
   }
 
-  editEmergency(id: number): Observable<ProfessionsResponse> {
-    return this.http.put<ProfessionsResponse>(`${this.baseUrl}/professions/${id}`, id)
+  editProfession(id: string, name: string): Observable<ProfessionsResponse> {
+    return this.http.put<ProfessionsResponse>(`${this.baseUrl}/professions/${id}`, name)
   }
 
-  deleteEmergency(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/professions/${id}`)
+  deleteProfession(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/professions/${id}`)
   }
 }
