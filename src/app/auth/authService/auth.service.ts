@@ -46,16 +46,17 @@ export class AuthService {
         if (response.message.includes("doesn't exist")) {
           return this.http.post<Register>(`${this.baseURL}/auth/register`, user).pipe(
             tap(() => {
-              this.router.navigate(['/verify-email'], { state: { email: user.email } })
+              this.router.navigateByUrl('/verify-email', { state: { email: user.email } })
             })
           )
         } else {
-          this.toast.danger('Email already exists, try a different one', 'Error', 3000)
-          return throwError(() => new Error('Email already exists, try a different one'))
+          this.toast.danger(response.message, 'Error', 3000)
+          return throwError(() => new Error(response.message))
         }
       }),
       catchError((error) => {
-        return throwError(() => error)
+        this.toast.danger(error.error.message, 'Error', 3000)
+        return throwError(() => new Error(error))
       })
     )
   }
@@ -69,7 +70,11 @@ export class AuthService {
           if (response.data.user.role === Role.ADMIN) {
             this.router.navigate(['/admin-page'])
           } else if (response.data.user.role === Role.PERSONNEL) {
-            this.router.navigate(['/personnel-profile'])
+            if (response.data.user.hasPersonnelData) {
+              this.router.navigateByUrl('/personnel-dashboard')
+            } else {
+              this.router.navigateByUrl('/personnel-profile')
+            }
           }
 
           return response
