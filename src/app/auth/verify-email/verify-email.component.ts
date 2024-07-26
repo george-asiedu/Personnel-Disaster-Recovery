@@ -24,8 +24,6 @@ export class VerifyEmailComponent implements OnInit {
     const state = navigation?.extras.state as { email: string }
     if (state && state.email) {
       this.email = state.email
-    } else {
-      this.toast.danger('Invalid or no email', "Email error", 3000)
     }
   }
 

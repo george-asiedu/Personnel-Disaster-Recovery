@@ -19,6 +19,9 @@
                 <span *ngIf="image" class="w-[50px] h-[50px] rounded-full bg-gray-300 text-heading flex items-center justify-center font-bold border-4 border-white shadow-md">
                     <img [src]="image" class="w-full h-full object-cover rounded-full" alt="user-image">
                 </span>
+                <span *ngIf="!image" class="w-[50px] h-[50px] rounded-full bg-gray-300 text-heading flex items-center justify-center font-bold border-4 border-white shadow-md">
+                    {{ userInitials }}
+                </span>
                 <span>
                     <h4 class="text-heading tracking-wide font-medium">{{username}}</h4>
                     <p class="text-sm tracking-wide text-paragraph">{{email}}</p>

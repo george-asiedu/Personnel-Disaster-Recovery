@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { Register } from '../../model/register';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { NgClass, NgIf } from '@angular/common';
@@ -32,7 +32,6 @@ export class RegisterComponent {
   constructor(
     private as: AuthService,
     private fb: FormBuilder, 
-    private router: Router, 
     private spinner: NgxSpinnerService,
     private toast: NgToastService
   ) {  
