@@ -1,7 +1,7 @@
 export interface EmergencyTypes {
     message: string,
     data: {
-        id: number,
+        id: string,
         name: string,
         status: string
     }
@@ -15,7 +15,7 @@ export interface GetEmergencyTypes {
 }
 
 export interface EmergencyType {
-    id: number,
+    id: string,
     name: string,
     status: string,
     created_at: Date

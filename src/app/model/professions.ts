@@ -1,7 +1,7 @@
 export interface ProfessionsResponse {
     message: string,
     data: {
-        id: number,
+        id: string,
         name: string,
         emergencyId: number,
         status: string
@@ -16,7 +16,7 @@ export interface GetProfession {
 }
 
 export interface Profession {
-    id: number,
+    id: string,
     name: string,
     status: string,
     created_at: Date

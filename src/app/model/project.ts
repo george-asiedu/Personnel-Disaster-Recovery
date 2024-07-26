@@ -16,12 +16,12 @@ export interface ProjectResponse {
 export interface GetProjects {
     data: {
         count: number,
-        projects: []
+        projects: Projects[]
     }
 }
 
 export interface Projects {
-    id: number,
+    id: string,
     created_at: Date,
     description: string,
     title: string

@@ -16,7 +16,8 @@ export interface LoginResponse {
             email: string,
             image: string,
             role: Role,
-            accountStatus: string
+            accountStatus: string,
+            hasPersonnelData: boolean
         }
     }
 }
