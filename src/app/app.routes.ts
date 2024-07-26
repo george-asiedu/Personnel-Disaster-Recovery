@@ -69,7 +69,7 @@ export const routes: Routes = [
         children: [
             { path: '',  component: AdminDashboardHomeComponent },
             { path: 'personnels',  component: PersonnelsComponent },
-            { path: 'personnel-details/:name',  component: PersonnelDetailsComponent },
+            { path: 'personnel-details/:id',  component: PersonnelDetailsComponent },
             { path: 'emergency',  component: EmergencyComponent },
             { path: 'professions',  component: ProfessionComponent },
             { path: 'managers',  component: ManagerComponent },
