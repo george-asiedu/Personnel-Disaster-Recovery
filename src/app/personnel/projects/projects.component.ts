@@ -1,11 +1,13 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { ProjectModalComponent } from '../../modal/project-modal/project-modal.component';
+import { ProjectTableComponent } from '../../components/table/project-table/project-table.component';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [NgIf, ProjectModalComponent],
+  imports: [NgIf, ProjectModalComponent, ProjectTableComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })

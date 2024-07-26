@@ -357,6 +357,7 @@
             <button 
                 type="submit" 
                 *ngIf="currentStep === 4"
+                [disabled]="profileForm.invalid"
                 class="px-[14px] py-[8px] bg-primary border border-border rounded-lg text-white tracking-wide font-medium hover:bg-tertiary text-sm"
             >
             <p class="white" *ngIf="!loading">Submit</p>
