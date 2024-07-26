@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { GetPersonnel, Profile } from '../../model/profile';
+import { GetPersonnel, Personnel, Profile } from '../../model/profile';
 import { Observable } from 'rxjs';
 import { GetProjects, Project, ProjectResponse } from '../../model/project';
 
@@ -21,8 +21,12 @@ export class PersonnelService {
     return this.http.get<GetPersonnel>(`${this.baseUrl}/personnels?page=${page}&want=${want}`)
   }
 
-  deletePersonnelProfile(id: string): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/personnels/${id}`, id)
+  getPersonnelById(id: string): Observable<Personnel> {
+    return this.http.get<Personnel>(`${this.baseUrl}/personnels/${id}`)
+  }
+
+  deletePersonnelProfile(id: string): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(`${this.baseUrl}/personnels/${id}`, id)
   }
 
   addProject(project: Project): Observable<ProjectResponse> {
@@ -33,11 +37,11 @@ export class PersonnelService {
     return this.http.get<GetProjects>(`${this.baseUrl}/projects?page=${page}&want=${want}`)
   }
 
-  getProjectById(id: string): Observable<GetProjects> {
-    return this.http.put<GetProjects>(`${this.baseUrl}/projects?page=${id}`, id)
+  updateProject(id: string, project: Project): Observable<ProjectResponse> {
+    return this.http.put<ProjectResponse>(`${this.baseUrl}/projects/${id}`, project)
   }
 
-  deleteProjects(id: string): Observable<{ message: string }> {
-    return this.http.delete<{ message: string }>(`${this.baseUrl}/projects?page=${id}`)
+  deleteProject(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/projects/${id}`)
   }
 }
