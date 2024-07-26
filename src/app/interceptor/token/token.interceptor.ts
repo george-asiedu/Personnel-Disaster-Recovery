@@ -25,6 +25,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
       const isExpired = decodedToken?.exp ? decodedToken.exp < Date.now() / 1000 : false
 
       if (isExpired) {
+        toast.info('Access time out, please wait...', 'Info', 3000)
         authService.tokenRefresh().subscribe((newToken: any) => {
           const user = localStorage.getItem('currentUser')
           if (user) {
