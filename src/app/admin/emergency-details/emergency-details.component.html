@@ -1,0 +1,120 @@
+<div class="w-full py-[43px] px-[98px] flex flex-col gap-[24px] max-h-[600px] 3xl:max-h-[800px] overflow-y-auto">
+    <div *ngIf="loading">
+      <app-spinner></app-spinner>
+    </div>
+    <div *ngIf="!loading && initiative">
+        <div class="bg-white w-full p-[40px] rounded-lg border border-border shadow-sm shadow-gray-50 mb-4">
+            <h3 class="text-heading tracking-wide font-semibold mb-[16px]">Manager information</h3>
+            <div class="w-full flex gap-[41px]">
+                <div class="w-[100px] h-[100px]">
+                    <img [src]="initiative.data.manager.image" class="w-full h-full object-cover" alt="user-avatar">
+                </div>
+                <div class="w-full flex flex-col gap-[32px]">
+                    <div class="w-full flex items-center justify-between py-[24px]">
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Full name</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.manager.name }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Email</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.manager.email }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Phone number</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.manager.phoneNumber }}</h3>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="bg-white w-full p-[40px] rounded-lg border border-border shadow-sm shadow-gray-50 mb-4">
+            <h3 class="text-heading tracking-wide font-semibold mb-[16px]">Emergency information</h3>
+            <div class="w-full flex gap-[41px]">
+                <div class="w-full flex flex-col gap-[32px]">
+                    <div class="w-full flex items-center justify-between py-[24px] border-b border-border">
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Emergency type</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.emergencyType.name }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Dispatched date</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.dispatched_date | date }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">End date</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.end_date | date }}</h3>
+                        </span>
+                    </div>
+                    <div class="w-full flex items-center justify-between py-[24px]">
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Location</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.location }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Emergency state</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.state }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Emergency status</h5>
+                            <h3 class="font-medium tracking-wide">{{ initiative.data.emergencyType.status }}</h3>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="bg-white w-full p-[40px] rounded-lg border border-border shadow-sm shadow-gray-50 mb-4">
+            <h3 class="text-heading tracking-wide font-semibold mb-[16px]">Personnel information</h3>
+            <div *ngFor="let personnel of initiative.data.emergencyInitiativePersonnel" class="w-full flex gap-[41px]">
+                <div class="w-[100px] h-[100px] cursor-pointer flex items-center justify-center">
+                    <img [src]="personnel.personnel.user.image" class="w-full h-full object-cover" alt="user-avatar">
+                </div>
+                <div class="w-full flex flex-col gap-[32px]">
+                    <div class="w-full flex items-center justify-between py-[24px] border-b border-border">
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Full name</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.user.name }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Email</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.user.email }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Phone number</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.phoneNumber }}</h3>
+                        </span>
+                    </div>
+                    <div class="w-full flex items-center justify-between py-[24px] border-b border-border">
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Gender</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.gender }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Digital Address</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.digitalAddress }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Town</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.town }}</h3>
+                        </span>
+                    </div>
+                    <div class="w-full flex items-center justify-between py-[24px]">
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Qualification</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.educationalBackground.qualification }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Study field</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.educationalBackground.studyField }}</h3>
+                        </span>
+                        <span>
+                            <h5 class="text-paragraph tracking-wide mb-[8px] text-sm">Date of birth</h5>
+                            <h3 class="font-medium tracking-wide">{{ personnel.personnel.dob | date }}</h3>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>                
+    </div>
+</div>
