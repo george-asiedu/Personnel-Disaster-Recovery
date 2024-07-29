@@ -1,43 +1,163 @@
 <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
-    <div class="bg-white p-[24PX] w-[400px] rounded-xl shadow-xl">
-        <span class="flex items-center justify-between mb-4">
+    <div class="bg-white py-[1rem] px-[24PX] w-[600px] rounded-xl shadow-xl">
+        <span class="flex items-center justify-between mb-2">
             <h3 class="text-heading font-semibold text-lg">Initiate emergency</h3>
             <button (click)="onCancel()" class="text-black text-2xl">&times;</button>
         </span>
-        <form class="flex flex-col gap-[10px]" [formGroup]="initiateEmergencyForm" (ngSubmit)="onSubmit()"> 
-            <div class="flex flex-col gap-[4px]">
-                <label for="managerName">Manager name</label>
-                <input 
-                    type="text"
-                    required
-                    id="managerName"
-                    formControlName="managerName"
-                    placeholder="Enter manager name"
-                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-sm text-heading rounded-lg w-full"
-                >
-            </div>
-            <div class="flex flex-col gap-[4px]">
-                <label for="emergencyType" class="text-paragraph font-medium tracking-wide text-sm">Emergency type</label>
+        <form class="flex flex-col gap-[8px]" [formGroup]="initiateEmergencyForm" (ngSubmit)="onSubmit()"> 
+            <div class="flex flex-col gap-[3px]">
+                <label for="managerId" class="text-paragraph font-medium tracking-wide text-sm">Manager name</label>
                 <select 
-                        id="emergencyType"
-                        formControlName="emergencyType"
+                    id="managerId"
+                    formControlName="managerId"
+                    required
+                    class="border border-border py-[10px] px-[14px] focus-within:border-heading focus-within:outline-none caret-primary text-sm text-heading rounded-lg w-full"
+                >
+                    <option value="">Select manager</option>
+                    <option *ngFor="let manager of managers" [value]="manager.id">{{ manager.name }}</option>
+                </select>
+                <div 
+                    class="text-red-500 text-[12px] flex items-center justify-between"
+                    *ngIf="initiateEmergencyForm.get('managerId')?.invalid && (initiateEmergencyForm.get('managerId')?.touched || initiateEmergencyForm.get('managerId')?.dirty)"
+                >
+                    <div *ngIf="initiateEmergencyForm.get('managerId')?.errors?.['required']">manager is required</div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-[3px]">
+                <label for="emergencyTypeId" class="text-paragraph font-medium tracking-wide text-sm">Emergency type</label>
+                <select 
+                        id="emergencyTypeId"
+                        formControlName="emergencyTypeId"
                         required
                         class="border border-border py-[10px] px-[14px] focus-within:border-heading focus-within:outline-none caret-primary text-sm text-heading rounded-lg w-full"
                     >
                         <option value="">Select emergency type</option>
-                        <option *ngFor="let emergency of emergency" [value]="emergency.id">{{ emergency.name }}</option>
-                    </select>
-            </div>
-            <div class="flex flex-col gap-[4px]">
-                <label for="location">Location</label>
-                <input 
-                    type="text"
-                    required
-                    id="location"
-                    formControlName="location"
-                    placeholder="Enter emergency location"
-                    class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-sm text-heading rounded-lg w-full"
+                        <option *ngFor="let emergency of emergencies" [value]="emergency.id">{{ emergency.name }}</option>
+                </select>
+                <div 
+                    class="text-red-500 text-[12px] flex items-center justify-between"
+                    *ngIf="initiateEmergencyForm.get('emergencyTypeId')?.invalid && (initiateEmergencyForm.get('emergencyTypeId')?.touched || initiateEmergencyForm.get('emergencyTypeId')?.dirty)"
                 >
+                    <div *ngIf="initiateEmergencyForm.get('emergencyTypeId')?.errors?.['required']">emergency type is required</div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-[3px]">
+                <label for="professions" class="text-paragraph font-medium tracking-wide text-sm">Profession</label>
+                <select 
+                        id="professions"
+                        formControlName="professions"
+                        required
+                        multiple
+                        class="border border-border py-[10px] px-[14px] focus-within:border-heading focus-within:outline-none caret-primary text-sm text-heading rounded-lg w-full"
+                    >
+                        <option value="">Select profession</option>
+                        <option *ngFor="let profession of professions" [value]="profession.id">{{ profession.name }}</option>
+                    </select>
+                    <div 
+                    class="text-red-500 text-[12px] flex items-center justify-between"
+                    *ngIf="initiateEmergencyForm.get('professions')?.invalid && (initiateEmergencyForm.get('professions')?.touched || initiateEmergencyForm.get('professions')?.dirty)"
+                >
+                    <div *ngIf="initiateEmergencyForm.get('professions')?.errors?.['required']">professions is required</div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-[3px]">
+                <label for="description" class="text-paragraph font-medium tracking-wide text-sm">Description</label>
+                <textarea 
+                    name="description" 
+                    id="description"
+                    formControlName="description"
+                    required
+                    maxlength="250"
+                    (input)="updateCharacterCount($event)"
+                    placeholder="Enter emergency description here"
+                    class="w-full h-[90px] text-sm resize-none border border-border rounded-lg px-[14px] py-[10px] shadow-sm shadow-border focus-within:outline-none placeholder:text-xs focus-within:border-heading caret-heading"
+                ></textarea>
+                <div class="text-heading text-[12px] flex items-center justify-end">
+                    <span>{{ charCount }}/{{ maxLength }}</span>
+                </div>
+                <div 
+                    class="text-red-500 text-[12px] flex items-center justify-between"
+                    *ngIf="initiateEmergencyForm.get('description')?.invalid && (initiateEmergencyForm.get('description')?.touched || initiateEmergencyForm.get('description')?.dirty)"
+                >
+                    <div *ngIf="initiateEmergencyForm.get('description')?.errors?.['required']">description is required</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-[1rem]">
+                <div class="flex flex-col gap-[8px]">
+                    <div class="flex flex-col gap-[3px]">
+                        <label for="location">Location</label>
+                        <input 
+                            type="text"
+                            required
+                            id="location"
+                            formControlName="location"
+                            placeholder="Enter emergency location"
+                            class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-sm text-heading rounded-lg w-full"
+                        >
+                        <div 
+                            class="text-red-500 text-[12px] flex items-center justify-between"
+                            *ngIf="initiateEmergencyForm.get('location')?.invalid && (initiateEmergencyForm.get('location')?.touched || initiateEmergencyForm.get('location')?.dirty)"
+                        >
+                            <div *ngIf="initiateEmergencyForm.get('location')?.errors?.['required']">location is required</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[3px]">
+                        <label for="state" class="text-paragraph font-medium tracking-wide text-sm">Emergency state</label>
+                        <select 
+                            id="state"
+                            formControlName="state"
+                            required
+                            class="border border-border py-[10px] px-[14px] focus-within:border-heading focus-within:outline-none caret-primary text-sm text-heading rounded-lg w-full"
+                        >
+                            <option value="">Select emergency state</option>
+                            <option value="HIGH">High</option>
+                            <option value="MEDIUM">MEDIUM</option>
+                            <option value="LOW">LOW</option>
+                        </select>
+                        <div 
+                            class="text-red-500 text-[12px] flex items-center justify-between"
+                            *ngIf="initiateEmergencyForm.get('state')?.invalid && (initiateEmergencyForm.get('state')?.touched || initiateEmergencyForm.get('state')?.dirty)"
+                        >
+                            <div *ngIf="initiateEmergencyForm.get('state')?.errors?.['required']">state is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-[8px]">
+                    <div class="flex flex-col gap-[3px]">
+                        <label for="dispatched_date">Dispatched date</label>
+                        <input 
+                            type="date"
+                            required
+                            id="dispatched_date"
+                            formControlName="dispatched_date"
+                            placeholder="Dispatched date here"
+                            class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-sm text-heading rounded-lg w-full"
+                        >
+                        <div 
+                            class="text-red-500 text-[12px] flex items-center justify-between"
+                            *ngIf="initiateEmergencyForm.get('dispatched_date')?.invalid && (initiateEmergencyForm.get('dispatched_date')?.touched || initiateEmergencyForm.get('dispatched_date')?.dirty)"
+                        >
+                            <div *ngIf="initiateEmergencyForm.get('dispatched_date')?.errors?.['required']">dispatched_date is required</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-[3px]">
+                        <label for="end_date">End date</label>
+                        <input 
+                            type="date"
+                            required
+                            id="end_date"
+                            formControlName="end_date"
+                            placeholder="Enter emergency location"
+                            class="border border-border py-[6px] px-[1rem] focus-within:outline-none focus-within:border-heading caret-primary placeholder:text-sm text-heading rounded-lg w-full"
+                        >
+                        <div 
+                            class="text-red-500 text-[12px] flex items-center justify-between"
+                            *ngIf="initiateEmergencyForm.get('end_date')?.invalid && (initiateEmergencyForm.get('end_date')?.touched || initiateEmergencyForm.get('end_date')?.dirty)"
+                        >
+                            <div *ngIf="initiateEmergencyForm.get('end_date')?.errors?.['required']">end_date is required</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="w-full flex items-center gap-4">
                 <button 
@@ -52,10 +172,10 @@
                     type="submit"
                     [disabled]="initiateEmergencyForm.invalid"
                 >
-                    <p *ngIf="!loading" class="tracking-wide font-medium text-white">Confirm</p>
+                    <p *ngIf="!loading" class="tracking-wide font-medium text-white">Initiate</p>
                     <span *ngIf="loading" class="flex items-center gap-[10px]">
                         <app-spinner/> 
-                        <p class="text-white font-medium tracking-wide">Submitting...</p>
+                        <p class="text-white font-medium tracking-wide">Initiating...</p>
                     </span>
                 </button>
             </div>

@@ -1,1 +1,18 @@
-<p>personnel-home works!</p>
+<div class="w-full py-[2rem] 3xl:py-[3rem] px-[1rem] 3xl:px-[2rem] flex flex-col gap-[1rem]">
+    <div class="mb-[2rem] px-[3rem]">
+        <h1 class="text-heading font-bold tracking-wide text-3xl mb-[10px]">Hello {{name}} 👋</h1>
+        <p class="text-paragraph tracking-wide">Here's an overview of your profile</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-[1rem] px-[1rem]">
+        <div class="border-r flex items-center justify-between px-[2rem]">
+            <span class="block">
+                <p class="text-paragraph text-xs tracking-wide mb-[10px]">Total projects Undertaken</p>
+                <h3 class="text-heading font-bold tracking-wide text-3xl">{{totalProjects}}</h3>
+            </span>
+            <span class="flex items-center gap-[2px] border-none rounded px-[10px] py-[3px] bg-secondary">
+                <img src="../../../assets/arrow-up.svg" alt="top-arrow">
+                <h5 class="font-bold text-[8px] tracking-wide text-tertiary">100%</h5>
+            </span>
+        </div>
+    </div>
+</div>

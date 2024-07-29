@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { GetPersonnel, Personnel, Profile } from '../../model/profile';
+import { GetPersonnel, PersonnelDetails, Profile } from '../../model/profile';
 import { Observable } from 'rxjs';
 import { GetProjects, Project, ProjectResponse } from '../../model/project';
 
@@ -21,12 +21,16 @@ export class PersonnelService {
     return this.http.get<GetPersonnel>(`${this.baseUrl}/personnels?page=${page}&want=${want}`)
   }
 
-  getPersonnelById(id: string): Observable<Personnel> {
-    return this.http.get<Personnel>(`${this.baseUrl}/personnels/${id}`)
+  getPersonnelById(id: string): Observable<PersonnelDetails> {
+    return this.http.get<PersonnelDetails>(`${this.baseUrl}/personnels/${id}`)
+  }
+
+  verifyPersonnel(id: string): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(`${this.baseUrl}/personnels/${id}/verify`, {})
   }
 
   deletePersonnelProfile(id: string): Observable<{ message: string }> {
-    return this.http.put<{ message: string }>(`${this.baseUrl}/personnels/${id}`, id)
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/personnels/${id}`)
   }
 
   addProject(project: Project): Observable<ProjectResponse> {

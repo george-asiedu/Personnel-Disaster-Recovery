@@ -21,4 +21,10 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #dddddd;
   border-radius: 16px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }/*# sourceMappingURL=styles.css.map */

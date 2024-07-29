@@ -24,7 +24,9 @@
         </div>
     </header>
 
-    <app-project-table />
+    <div *ngIf="!loading && count >= 1">
+        <app-project-table />
+    </div>
 
     <app-project-modal
         *ngIf="isModalVisible"

@@ -1,8 +1,8 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProjectModalComponent } from '../../modal/project-modal/project-modal.component';
 import { ProjectTableComponent } from '../../components/table/project-table/project-table.component';
-import { NgToastService } from 'ng-angular-popup';
+import { PersonnelService } from '../service/personnel.service';
 
 @Component({
   selector: 'app-projects',
@@ -11,10 +11,20 @@ import { NgToastService } from 'ng-angular-popup';
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements OnInit {
   public isModalVisible: boolean = false
+  public loading: boolean = false
+  public count: number = 0
 
-  constructor() {}
+  constructor(private ps: PersonnelService) {}
+
+  ngOnInit(): void {
+    this.loading = true
+    this.ps.getProjects(0).subscribe(response => {
+      this.loading = false
+      this.count = response.data.count
+    })
+  }
 
   showModal() {
     this.isModalVisible = true

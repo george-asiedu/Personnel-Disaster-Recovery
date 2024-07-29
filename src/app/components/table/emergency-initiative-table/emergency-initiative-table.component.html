@@ -1,22 +1,50 @@
 <div class="max-h-[410px] 3xl:max-h-[620px] overflow-y-auto">
-    <table class="w-full">
+    <div *ngIf="loading" class="mt-[3rem]">
+        <app-spinner/>
+    </div>
+    <table class="w-full" *ngIf="!loading">
         <thead class="bg-[#e8eef8] sticky top-0 z-[1]">
             <tr>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Manager</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Emergency type</th>
-                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Date</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Manager</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">State</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Dispatched date</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Description</th>
+                <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Status</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Location</th>
                 <th class="text-paragraph tracking-wide font-medium py-5 px-5 text-sm text-left">Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="text-sm text-paragraph tracking-wide" *ngFor="let emergency of emergencies; let i = index">
-                <td class="px-5">
-                    <p class="text-paragraph text-sm">{{ emergency.managerName }}</p>
+            <tr class="text-sm text-paragraph tracking-wide"  *ngFor="let initiate of initiative; let i = index">
+                <td class="px-5 text-paragraph text-sm">{{initiate.emergencyType.name}}</td>
+                <td class="px-5 text-paragraph text-sm">{{ initiate.manager.name }}</td>
+                <td class="px-5 text-paragraph text-sm">
+                    <span 
+                        [ngClass]="{
+                            'bg-suspendBg text-suspend': initiate.state === 'HIGH',
+                            'bg-yellow-50 text-yellow-700': initiate.state === 'MEDIUM',
+                            'bg-pendingBg text-pending': initiate.state === 'LOW'
+                        }"
+                        class="px-[14px] py-[4px] text-xs rounded-full font-bold"
+                    >
+                    {{ initiate.state }}
+                    </span>
                 </td>
-                <td class="px-5 text-paragraph text-sm">{{ emergency.emergencyType }}</td>
-                <td class="px-5 text-paragraph text-sm">{{ emergency.date }}</td>
-                <td class="px-5 text-paragraph text-sm">{{ emergency.location }}</td>
+                <td class="px-5 text-paragraph text-sm">{{ initiate.dispatched_date | date }}</td>
+                <td class="px-5 text-paragraph text-sm">{{initiate.description}}</td>
+                <td class="px-5 text-paragraph text-sm">
+                    <span 
+                        [ngClass]="{
+                            'bg-secondary text-primary': initiate.emergencyType.status === 'ACTIVE',
+                            'bg-pendingBg text-pending': initiate.emergencyType.status === 'PENDING',
+                        }"
+                        class="px-[14px] py-[4px] text-xs rounded-full font-bold"
+                    >
+                        {{initiate.emergencyType.status}}
+                    </span>
+                </td>
+                <td class="px-5 text-paragraph text-sm">{{initiate.location}}</td>
                 <td class="py-4 px-5 text-paragraph relative">
                     <img 
                         src="../../../assets/action.svg" 
@@ -28,17 +56,21 @@
                         *ngIf="isDropdownVisible[i]" 
                         class="absolute right-6 2xl:right-20 mt-1 w-[222px] bg-white border border-border shadow-lg z-10"
                     >
-                        <button    
+                        <button 
+                            *ngIf="role === 'ADMIN'"
+                            [routerLink]="['/admin-page/emergency-initiative-details', initiate.id]"
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
-                            <img src="../../../../assets/edit.svg" alt="edit">
-                            <p class="text-heading text-left tracking-wide">Edit emergency</p>
+                            <img src="../../../../assets/eye.svg" alt="eye">
+                            <p class="text-heading text-left tracking-wide">View details</p>
                         </button>
                         <button 
+                            *ngIf="role === 'PERSONNEL'"
+                            (click)="approveEmergency(initiate.id)"
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
-                            <img src="../../../../assets/trash.svg" alt="trash">
-                            <p class="text-heading text-left tracking-wide">Delete emergency</p>
+                            <img src="../../../../assets/check-circle.svg" alt="check-circle">
+                            <p class="text-heading text-left tracking-wide">Approve emergency</p>
                         </button>
                     </div>
                 </td>
@@ -46,3 +78,11 @@
         </tbody>
     </table>
 </div>
+
+<app-pagination
+  *ngIf="!loading && totalInitiative > pageSize"
+  [totalData]="totalInitiative"
+  [pageSize]="pageSize"
+  [currentPage]="currentPage"
+  (paginationChange)="handlePageChange($event)"
+></app-pagination>

@@ -42,3 +42,51 @@ export interface Personnel {
     status: string,
     createdAt: Date
 }
+
+export interface EducationalBackground {
+    qualification: string;
+    studyField: string;
+    graduationYear: string;
+  }
+  
+  export interface User {
+    id: string;
+    name: string;
+    email: string;
+    image: string;
+  }
+  
+  export interface Profession {
+    name: string;
+  }
+  
+  export interface PersonnelProfession {
+    employeeId: string;
+    currentPosition: string;
+    employerName: string;
+    employerEmail: string;
+    experienceYears: number;
+  }
+  
+  export interface PersonnelData {
+    id: string;
+    availability: string;
+    digitalAddress: string;
+    dob: Date;
+    gender: string;
+    houseNumber: string;
+    phoneNumber: string;
+    status: string;
+    town: string;
+    userId: string;
+    educationalBackground: EducationalBackground;
+    user: User;
+    profession: Profession;
+    personnelProfession: PersonnelProfession;
+    totalProjects: number;
+  }
+  
+
+export interface PersonnelDetails {
+    data: PersonnelData
+}

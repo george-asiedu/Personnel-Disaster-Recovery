@@ -1,1 +1,26 @@
-<p>personnel-emergency works!</p>
+<div class="w-full py-[2rem] 3xl:py-[3rem] lg:px-[2rem] flex flex-col gap-[1rem]">
+    <header class="w-full flex items-center justify-between">
+        <div class="flex items-center gap-[8px]">
+            <h3 class="text-heading tracking-wide font-medium text-lg">Emergency initiative</h3>
+            <span class="bg-secondary animate-pulse w-[30px] h-[30px] flex items-center justify-center cursor-pointer rounded-full">
+                <h6 class="text-xs font-medium text-center">{{count}}</h6>
+            </span>
+        </div>
+        <div class="bg-white border border-border w-[320px] h-[44px] px-[16px] flex items-center gap-[10px] rounded-lg shadow-sm shadow-border">
+            <img src="../../../assets/search.svg" alt="search-icon">
+            <input 
+                type="search" 
+                placeholder="Search emergency initiative"
+                class="bg-inherit w-full h-[70%] border-none focus-within:outline-none caret-primary placeholder:text-paragraph"
+            >
+        </div>
+    </header>
+
+    <div *ngIf="!loading && count >=1">
+        <app-emergency-initiative-table/>
+    </div>
+
+    <div *ngIf="!loading && count < 1">
+        Woops! no emergency initiated for you
+    </div>
+</div>
