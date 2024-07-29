@@ -24,7 +24,9 @@
         </div>
     </header>
 
-    <app-emergency-table></app-emergency-table>
+    <div *ngIf="!loading && count >= 1">
+        <app-emergency-table></app-emergency-table>
+    </div>
 
     <app-create-emergency-modal 
         *ngIf="isModalVisible"

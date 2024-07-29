@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateEmergencyModalComponent } from '../../modal/create-emergency-modal/create-emergency-modal.component';
 import { NgIf } from '@angular/common';
-import { NgToastService } from 'ng-angular-popup';
 import { EmergencyTableComponent } from '../../components/table/emergency-table/emergency-table.component';
 import { EmergencyService } from '../service/emergency/emergency.service';
 
@@ -19,11 +18,14 @@ import { EmergencyService } from '../service/emergency/emergency.service';
 export class EmergencyComponent implements OnInit {
   public isModalVisible: boolean = false
   public count: number = 0
+  public loading: boolean = false
 
-  constructor(private toast: NgToastService, private es: EmergencyService) {}
+  constructor(private es: EmergencyService) {}
 
   ngOnInit(): void {
+    this.loading = true
     this.es.getEmergencies(0).subscribe(response => {
+      this.loading = false
       this.count = response.data.count
     })
   }
@@ -38,6 +40,5 @@ export class EmergencyComponent implements OnInit {
 
   confirmData() {
     this.isModalVisible = false
-    this.toast.success("Personnel suspended successfully", "Success", 3000)
   }
 }

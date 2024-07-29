@@ -1,7 +1,8 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ManagerModalComponent } from '../../modal/manager-modal/manager-modal.component';
 import { ManagerTableComponent } from '../../components/table/manager-table/manager-table.component';
+import { ManagerService } from '../service/manager/manager.service';
 
 @Component({
   selector: 'app-manager',
@@ -10,11 +11,20 @@ import { ManagerTableComponent } from '../../components/table/manager-table/mana
   templateUrl: './manager.component.html',
   styleUrl: './manager.component.scss'
 })
-export class ManagerComponent {
+export class ManagerComponent implements OnInit {
   public isModalVisible: boolean = false
   public count: number = 0
+  public loading: boolean = false
 
-  constructor(){}
+  constructor(private mn: ManagerService){}
+
+  ngOnInit(): void {
+    this.loading = true
+    this.mn.getManagers(0).subscribe(response => {
+      this.loading = false
+      this.count = response.data.count
+    })
+  }
 
   showModal() {
     this.isModalVisible = true

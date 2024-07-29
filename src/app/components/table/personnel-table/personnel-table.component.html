@@ -21,10 +21,10 @@
                             class="relative w-[40px] h-[40px] rounded-full cursor-pointer flex items-center justify-center"
                             *ngIf="personnel.image"
                         >
-                            <img [src]="personnel.image" class="w-full h-full object-cover rounded-full" alt="user-avatar">
+                            <img [src]="personnel.image" class="w-full h-full object-cover rounded-full" alt="{{personnel.name}}">
                             <span
                                 [ngClass]="{
-                                    'bg-primary animate-pulse': personnel.status === 'VERIFIED',
+                                    'bg-primary animate-pulse': personnel.status === 'APPROVE',
                                     'bg-pending animate-pulse': personnel.status === 'PENDING'
                                 }"
                                 class="w-[10px] h-[10px] rounded-full absolute bottom-0 right-0"
@@ -40,7 +40,7 @@
                     <span 
                         [ngClass]="{
                             'bg-pendingBg text-pending': personnel.status === 'PENDING',
-                            'bg-secondary text-primary': personnel.status === 'VERIFIED',
+                            'bg-secondary text-primary': personnel.status === 'APPROVE',
                             'bg-suspendBg text-suspend': personnel.status === 'SUSPEND'
                         }"
                         class="px-[10px] py-[4px] text-xs rounded-full font-bold"
@@ -60,7 +60,7 @@
                         class="absolute right-6 2xl:right-20 mt-1 w-[222px] bg-white border border-border shadow-lg z-10"
                     >
                         <button 
-                            routerLink="personnel-details/{{personnel.id}}"
+                            [routerLink]="['/admin-page/personnel-details', personnel.id]"
                             class="flex items-center gap-[12px] w-full px-4 py-2 hover:bg-[#EAECF0]"
                         >
                             <img src="../../../assets/eye.svg" alt="eye">

@@ -24,7 +24,10 @@
         </div>
     </header>
 
-    <app-profession-table />
+    <div *ngIf="!loading && count >= 1">
+        <app-profession-table />
+    </div>
+
     <app-create-profession-modal
         *ngIf="isProfessionModalOpen"
         (cancel)="closeProfessionModal()"

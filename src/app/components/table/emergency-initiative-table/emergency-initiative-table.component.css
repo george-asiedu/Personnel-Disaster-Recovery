@@ -1,1 +1,3 @@
-/*# sourceMappingURL=emergency-initiative-table.component.css.map */
+tbody tr:nth-child(even) {
+  background-color: #EFF8FF;
+}/*# sourceMappingURL=emergency-initiative-table.component.css.map */

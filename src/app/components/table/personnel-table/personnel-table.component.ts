@@ -42,7 +42,7 @@ export class PersonnelTableComponent implements OnInit {
 
   fetchPersonnels(page: number): void {
     this.ps.getPersonnelData(page).subscribe({
-      next: (response) => {    
+      next: (response) => {   
         this.loading = false
         this.personnelDetails = response.personnel
         this.totalPersonnel = response.count

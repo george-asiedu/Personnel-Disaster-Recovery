@@ -3,7 +3,7 @@
         <div class="flex items-center gap-[8px]">
             <h3 class="text-heading tracking-wide font-medium text-lg">Emergency initiative</h3>
             <span class="bg-secondary animate-pulse w-[30px] h-[30px] flex items-center justify-center cursor-pointer rounded-full">
-                <h6 class="text-xs font-medium text-center">9</h6>
+                <h6 class="text-xs font-medium text-center">{{count}}</h6>
             </span>
         </div>
         <div class="flex items-center gap-[1rem]">
@@ -24,22 +24,8 @@
         </div>
     </header>
 
-    <app-emergency-initiative-table/>
-    
-    <div class="flex items-center justify-between w-full mt-[2rem]">
-        <button 
-            class="flex items-center gap-[10px] rounded-lg px-[14px] py-[8px] hover:bg-gray50 bg-white border border-border"
-        >
-            <img src="../../../assets/arrow-left-black.svg" alt="arrow-left-icon">
-            <p class="text-heading tracking-wide text-sm">Previous</p>
-        </button>
-        <app-pagination/>
-        <button 
-            class="flex items-center gap-[10px] rounded-lg px-[14px] flex-row-reverse py-[8px] hover:bg-gray50 bg-white border border-border"
-        >
-            <img src="../../../assets/arrow-right.svg" alt="arrow-right-icon">
-            <p class="text-heading tracking-wide text-sm">Next</p>
-        </button>
+    <div *ngIf="!loading && count >= 1">
+        <app-emergency-initiative-table/>
     </div>
 
     <app-create-initiative-modal

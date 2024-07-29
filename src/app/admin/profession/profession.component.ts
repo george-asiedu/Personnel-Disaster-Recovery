@@ -19,11 +19,14 @@ import { ProfessionService } from '../service/profession/profession.service';
 export class ProfessionComponent implements OnInit {
   public isProfessionModalOpen: boolean = false
   public count: number = 0
+  public loading: boolean = false
 
-  constructor(private toast: NgToastService, private ps: ProfessionService) {}
+  constructor(private ps: ProfessionService) {}
 
   ngOnInit(): void {
+    this.loading = true
     this.ps.getProfession(0).subscribe(response => {
+      this.loading = false
       this.count = response.data.count
     })
   }
@@ -38,6 +41,5 @@ export class ProfessionComponent implements OnInit {
 
   onSubmit() {
     this.isProfessionModalOpen = false
-    this.toast.success("Personnel created successfully", "Success", 3000)
   }
 }

@@ -1,7 +1,7 @@
 <div class="w-full py-[1rem] 2xl:py-[2rem] px-[2rem] flex flex-col gap-[1rem]">
     <header class="w-full flex items-center justify-between">
         <div class="flex items-center gap-[8px]">
-            <h3 class="text-heading tracking-wide font-medium text-lg">Personnels</h3>
+            <h3 class="text-heading tracking-wide font-medium text-lg">Personnel</h3>
             <span class="bg-secondary w-[30px] h-[30px] flex items-center justify-center cursor-pointer rounded-full">
                 <h6 class="text-xs font-medium text-center">{{count}}</h6>
             </span>
@@ -15,5 +15,7 @@
             >
         </div>
     </header>
-    <app-personnel-table/>
+   <div *ngIf="!loading && count >= 1">
+        <app-personnel-table/>
+   </div>
 </div>

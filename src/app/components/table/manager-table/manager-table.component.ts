@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
-import { EmergencyService } from '../../../admin/service/emergency/emergency.service';
-import { EmergencyType } from '../../../model/emergency-types';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { SpinnerComponent } from '../../spinner/spinner.component';
-import { ManagerModalComponent } from '../../../modal/manager-modal/manager-modal.component';
 import { ManagerService } from '../../../admin/service/manager/manager.service';
 import { Managers } from '../../../model/manager';
 import { EditManagerModalComponent } from '../../../modal/edit-manager-modal/edit-manager-modal.component';
