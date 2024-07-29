@@ -9,10 +9,10 @@ import { EmergencyInitiativeComponent } from './admin/emergency-initiative/emerg
 import { AccountSettingsComponent } from '../app/account-settings/account-settings.component';
 import { ProfessionComponent } from './admin/profession/profession.component';
 import { ManagerComponent } from './admin/manager/manager.component';
-import { PersonnelDashboardComponent } from '../app/personnel/personnel-dashboard/personnel-dashboard.component';
 import { PersonnelEmergencyComponent } from './personnel/personnel-emergency/personnel-emergency.component';
 import { ProjectsComponent } from './personnel/projects/projects.component';
 import { PersonnelHomeComponent } from './personnel/personnel-home/personnel-home.component';
+import { EmergencyDetailsComponent } from './admin/emergency-details/emergency-details.component';
 
 
 export const routes: Routes = [
@@ -74,7 +74,8 @@ export const routes: Routes = [
             { path: 'professions',  component: ProfessionComponent },
             { path: 'managers',  component: ManagerComponent },
             { path: 'emergency-initiative',  component: EmergencyInitiativeComponent },
-            { path: 'account-settings/:name',  component: AccountSettingsComponent }
+            { path: 'account-settings/:name',  component: AccountSettingsComponent },
+            { path: 'emergency-initiative-details/:id', component: EmergencyDetailsComponent }
         ]
     },
     {
